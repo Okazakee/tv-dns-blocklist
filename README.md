@@ -81,7 +81,11 @@ Saphi/Net TV ad endpoints named in TP Vision's own provider documents.
 GITV stack).
 
 **Panasonic VIERA** — the `myhomescreen.tv` telemetry platform (app-start
-hosts excepted) and `x2.vindicosuite.com`.
+hosts excepted) and the Vindico ad-measurement suite (`vindicosuite.com`).
+
+**Broadcast / HbbTV** — Red Button front-ends, German broadcaster HbbTV
+services (`p-hbbtv.superrtl.de`, `tracksrv.zdf.de`, anixe hosts), audience
+measurement (INFOnline, AT Internet, Nielsen) and connected-TV app telemetry.
 
 ## What is never blocked
 

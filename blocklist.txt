@@ -6,7 +6,8 @@
 !        Samsung Tizen, Hisense VIDAA, Vizio SmartCast (Inscape), Roku,
 !        Amazon Fire TV, Philips (Titan OS / Net TV), Xiaomi Mi TV and
 !        Panasonic VIERA — incl. their ACR partners (Samba TV, Alphonso,
-!        Inscape, Roku ACR, Amazon ACR, Samsung Ads) and ad delivery systems.
+!        Inscape, Roku ACR, Amazon ACR, Samsung Ads), ad delivery systems and
+!        broadcast/HbbTV tracking.
 ! Verified: against live DNS traffic of the Sony + LG TVs on this network
 !        (AdGuard Home query log) + community lists + platform recon reports +
 !        DNS resolution checks (blocked targets resolve pre-enable, KEEP set
@@ -375,8 +376,36 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 ! app-start hosts are excepted below)
 ||myhomescreen.tv^
 
-! Ad/analytics beacon (Vindico/VIZIO ad-measurement suite — shared infra)
-||x2.vindicosuite.com^
+! Ad/analytics beacon (Vindico ad-measurement suite — shared infra)
+||vindicosuite.com^
+
+! ========== BROADCAST / HBBTV + MEASUREMENT TRACKERS ==========
+! Hit by TV tuners/HbbTV apps and connected-TV apps. Curated from Perflyst's
+! Smart-TV list (live-verified); its HbbTV entries that no longer resolve
+! (hbbtv-track.redbutton.de, hbbtv-1.eurosport.com, start.digitaltext.rtl.de,
+! hbbtvapp.sonnenklar.tv, nbc-jite.nbcuni.com) were left out.
+
+! Red Button (UK) + HbbTV service front-ends
+||redbutton-adproxy-lb-prod.redbutton.de^
+||redbutton-lb-prod.redbutton.de^
+||redbutton.sim-technik.de^
+||hbbtv-extern-fe01.sim-technik.de^
+
+! German broadcaster HbbTV services
+||p-hbbtv.superrtl.de^
+||hbbtv01p.anixe.net^
+||database01p.anixe.net^
+||tracksrv.zdf.de^
+||ad.71i.de^
+
+! Audience measurement (AGF/INFOnline, AT Internet, Nielsen)
+||script.ioam.de^
+||logs1409.xiti.com^
+||secure-eu.imrworldwide.com^
+
+! Connected-TV app telemetry
+||7345023508.fxmconnect.com^
+||7345023508.fxm9485766783.com^
 
 ! ============= KEEP-WORKING EXCEPTIONS ($important) =============
 ! Update chains: never block these even if other lists ever do
@@ -393,7 +422,7 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 @@||nsu.lge.com^$important
 @@||su-dev.lge.com^$important
 @@||snu-dev.lge.com^$important
-! Apex-only: Perflyst's Smart-TV list blocks the bare lgtvsdp.com (second-screen
+! Apex-only: some community TV lists block the bare lgtvsdp.com (second-screen
 ! base). Start-anchored, so subdomains like rdx2.lgtvsdp.com stay blocked.
 @@|lgtvsdp.com^$important
 
