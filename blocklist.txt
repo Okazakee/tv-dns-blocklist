@@ -22,6 +22,8 @@
 !        ipanalytics device-group lists · samsapti/LG-webOS-Blocklist ·
 !        TheShawnMiranda/LG-TV-Ad-Block · casenjo Sony gist · Level1Techs
 !        webOS recon · oisd excludes · TP Vision Smart TV provider docs ·
+!        THectic-NL/Blocklists (Sept 2026 LG ACR enumeration, cross-referenced
+!        for the LG recommendation/AWS host families) ·
 !        UCL ACR study arXiv 2409.06203 · netify.ai · vendor pages (Samsung
 !        ACR support ANS10010616, policy.samsungrs.com).
 ! ---------------------------------------------------------------------------
@@ -38,6 +40,7 @@
 
 ! Ad / promo / legacy telemetry endpoints
 ||call.me.sel.sony.com^
+||social.biv.sony.tv^
 ||sonybivstatic-a.akamaihd.net^
 ||bravia.dl.playstation.net^
 ||flingo.tv^
@@ -89,6 +92,15 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 ! Ad-tech/telemetry domain from two independent non-breaking lists
 ||ueiwsp.com^
 
+! LG recommendation + ad/telemetry backends behind AWS (per-country records,
+! all live-verified; source: Sept 2026 LG-TV investigation cross-referenced via
+! THectic-NL/Blocklists — every pattern resolves only for provisioned country
+! codes, so no wildcard risk)
+||lgrecommends.lgappstv.com^
+/^[a-z0-9]{2,4}-ad-lgsmartad-com\.aws-prd\.net$/
+/^[a-z0-9]{2,4}-info-lgsmartad-com\.aws-prd\.net$/
+/^[a-z0-9]{2,4}-rdx2-lgtvsdp-com\.aws-prd\.net$/
+
 ! ================= SAMSUNG (Tizen) =================
 
 ! --- ACR / viewing-data (Samsung Ads' own fingerprinting; study-confirmed) ---
@@ -112,6 +124,8 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 ||acr-mx-prd.samsungcloud.tv^
 ||acr-nz-prd.samsungcloud.tv^
 ||acr-us-prd.samsungcloud.tv^
+! Same pattern, any future/other region:
+/^acr-[a-z0-9]{2,4}-prd\.samsungcloud\.tv$/
 
 ! Legacy InfoLink beacon/ACR (2013-2015 F/H-series; bursts of ~10k queries/10min)
 ! NOTE: on UE40F5500-class sets the app store/login used it — whitelist this
@@ -192,6 +206,8 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 ||unified-exc.hismarttv.com^
 ||api-cloudfalcon.hismarttv.com^
 ||api-gps-eu.hismarttv.com^
+||api-gps-na.hismarttv.com^
+||api-gps-em.hismarttv.com^
 
 ! --- Ad / monetization / reporting backends ---
 ||rpt-ads.vidaahub.com^
@@ -313,6 +329,7 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 ||mobile-collector.newrelic.com^
 ||config.ioam.de^
 ||device-messaging-na.amazon.com^
+||devicemessaging.us-east-1.amazon.com^
 ||mas-sdk.amazon.com^
 
 ! ================= PHILIPS (Titan OS / Net TV) =================
@@ -552,6 +569,10 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 ! Sony notification ACK tracking — role vs TV update notices unverified
 !||ack.me.sony.com^
 
+! Legacy appliCast widget platform — CNAMEs into update.me.sony.com
+! (update-adjacent; keep out unless you own a pre-2015 Bravia)
+!||applicast.ga.sony.net^
+
 ! Base service channel of older Bravia (may be required for app connectivity
 ! on some models; the device-hashed ad subdomains are blocked above instead)
 !||ssm1.internet.sony.tv^
@@ -651,6 +672,7 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 !||mads.amazon-adsystem.com^
 !||aax-eu.amazon-adsystem.com^
 !||pinpoint.us-east-1.amazonaws.com^
+!||mads-eu.amazon.com^
 
 ! Community-reported, purpose undocumented
 !||aviary.amazon.com^

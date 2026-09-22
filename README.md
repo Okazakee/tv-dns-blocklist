@@ -44,8 +44,10 @@ hashes) and legacy ad/promo endpoints.
 **LG webOS** — ad servers (`lgsmartad.com`, `cjpowercast.com`, `smartclip.*`,
 `yumenetworks.com`), Alphonso ACR, the CDP tracking platform
 (`lgtvcommon.com`), telemetry/recommender uploads (`rdx2.*`,
-`lgtvonline.lge.com`), content-store beacons and recommendation workers
-(`*-gfts`/`*-ngfts.lge.com`).
+`lgtvonline.lge.com`), the recommendation/ad family
+(`lgrecommends.lgappstv.com`) and its per-country AWS backends
+(`*-lgsmartad-com.aws-prd.net`, `*-rdx2-lgtvsdp-com.aws-prd.net`),
+content-store beacons and recommendation workers (`*-gfts`/`*-ngfts.lge.com`).
 
 **Samsung Tizen** — the full ACR pipeline (`samsungacr.com`, `acr0` + `acr<N>`
 regex, `acr-<cc>-prd.samsungcloud.tv`), Samsung Ads/AdGear delivery
@@ -155,7 +157,8 @@ TheShawnMiranda/LG-TV-Ad-Block · casenjo (Sony) · Level1Techs webOS recon ·
 oisd excludes · TP Vision "Smart TV Platform providers" ·
 [arXiv:2409.06203](https://arxiv.org/abs/2409.06203) (UCL ACR study) ·
 netify.ai · Samsung ACR support (ANS10010616) · Samsung Ads privacy notice
-(policy.samsungrs.com).
+(policy.samsungrs.com) · THectic-NL/Blocklists (Sept 2026 LG ACR enumeration,
+cross-referenced for the LG recommendation/AWS host families).
 
 ## License
 
