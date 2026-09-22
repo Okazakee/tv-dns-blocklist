@@ -19,11 +19,19 @@ ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "blocklist.txt"
 DST = ROOT / "blocklist-strict.txt"
 
-HEADER = """\
+def version_of(text: str) -> str:
+    m = re.search(r"^! Version: (.+)$", text, re.M)
+    return m.group(1).strip() if m else "unversioned"
+
+
+def header(version: str) -> str:
+    return f"""\
 ! ---------------------------------------------------------------------------
 ! TV telemetry / ads / ACR blocklist — STRICT TIER (generated file)
+! Version: {version}
 ! Homepage: https://github.com/Okazakee/tv-dns-blocklist · License: MIT
-! Build: 2026-09-23 · for AdGuard Home (or any Adblock-syntax DNS filter)
+! For AdGuard Home (or any engine with full Adblock syntax; Pi-hole users:
+! use the generated pihole/ variants — see README)
 !
 ! GENERATED — do not edit by hand. Edit blocklist.txt, then run:
 !   python3 tools/build-strict.py
@@ -138,7 +146,7 @@ def main() -> None:
             seen.add(s)
         deduped.append(line)
 
-    DST.write_text(HEADER + "\n".join(deduped) + "\n")
+    DST.write_text(header(version_of(text)) + "\n".join(deduped) + "\n")
     rules = sum(1 for l in deduped if l.strip() and not l.strip().startswith("!"))
     print(f"wrote {DST.name}: {rules} rules ({dropped} duplicate lines dropped)")
 

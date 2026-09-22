@@ -1,7 +1,9 @@
 ! ---------------------------------------------------------------------------
-! TV telemetry / ads / ACR blocklist (curated)
+! Title: TV DNS Blocklist — smart-TV telemetry / ads / ACR (curated)
+! Version: 2026.09.23
 ! Homepage: https://github.com/Okazakee/tv-dns-blocklist · License: MIT
-! Build: 2026-09-23 · for AdGuard Home (or any Adblock-syntax DNS filter)
+! Expires: 1 day · for AdGuard Home (full Adblock syntax). Pi-hole users: use
+! the generated pihole/ variant — see README.
 ! Scope: first-party analytics/spy endpoints of Sony BRAVIA, LG webOS,
 !        Samsung Tizen, Hisense VIDAA, Vizio SmartCast (Inscape), Roku,
 !        Amazon Fire TV, Philips (Titan OS / Net TV), Xiaomi Mi TV and
@@ -646,7 +648,7 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 !||syncplusconfig.s3.amazonaws.com^
 !||vd.emp.prd.s3.amazonaws.com^
 !||vd.contents.prod.eu.s3.amazonaws.com^
-!Coordinator-Production-28516768.us-east-1.elb.amazonaws.com
+!coordinator-production-28516768.us-east-1.elb.amazonaws.com
 !||d179kwmlpc4o47.cloudfront.net^
 !||d1jwpcr0q4pcq0.cloudfront.net^
 !||d2tnx644ijgq6i.cloudfront.net^

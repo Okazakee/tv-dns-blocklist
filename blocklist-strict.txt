@@ -1,7 +1,9 @@
 ! ---------------------------------------------------------------------------
 ! TV telemetry / ads / ACR blocklist — STRICT TIER (generated file)
+! Version: 2026.09.23
 ! Homepage: https://github.com/Okazakee/tv-dns-blocklist · License: MIT
-! Build: 2026-09-23 · for AdGuard Home (or any Adblock-syntax DNS filter)
+! For AdGuard Home (or any engine with full Adblock syntax; Pi-hole users:
+! use the generated pihole/ variants — see README)
 !
 ! GENERATED — do not edit by hand. Edit blocklist.txt, then run:
 !   python3 tools/build-strict.py
@@ -683,7 +685,7 @@ mediaservices.cdn-apple.com
 ||syncplusconfig.s3.amazonaws.com^
 ||vd.emp.prd.s3.amazonaws.com^
 ||vd.contents.prod.eu.s3.amazonaws.com^
-Coordinator-Production-28516768.us-east-1.elb.amazonaws.com
+coordinator-production-28516768.us-east-1.elb.amazonaws.com
 ||d179kwmlpc4o47.cloudfront.net^
 ||d1jwpcr0q4pcq0.cloudfront.net^
 ||d2tnx644ijgq6i.cloudfront.net^
