@@ -393,6 +393,9 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 @@||nsu.lge.com^$important
 @@||su-dev.lge.com^$important
 @@||snu-dev.lge.com^$important
+! Apex-only: Perflyst's Smart-TV list blocks the bare lgtvsdp.com (second-screen
+! base). Start-anchored, so subdomains like rdx2.lgtvsdp.com stay blocked.
+@@|lgtvsdp.com^$important
 
 ! Samsung: update chain + connectivity check + clock sync
 @@||cdn.samsungcloudsolution.com^$important
