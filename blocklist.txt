@@ -1,0 +1,149 @@
+! ---------------------------------------------------------------------------
+! Sony BRAVIA + LG webOS TV telemetry / ads / ACR blocklist (curated)
+! Homepage: https://github.com/Okazakee/sony-lg-tv-blocklist · License: MIT
+! Build: 2026-09-22 · for AdGuard Home (or any Adblock-syntax DNS filter)
+! Scope: first-party analytics/spy endpoints of Sony BRAVIA (Android/Google TV
+!        and legacy models) and LG webOS TVs, incl. their ACR partners
+!        (Samba TV, Alphonso) and ad delivery systems.
+! Verified: against live DNS traffic of both TVs on this network (AdGuard Home
+!        query log) + community lists + platform recon reports. Update/store/
+!        second-screen/voice endpoints are explicitly NOT blocked (allow
+!        exceptions included for the critical update ones).
+! Sources: Perflyst SmartTV · hkamran80/blocklists · samsapti/LG-webOS-Blocklist
+!        (non-breaking) · TheShawnMiranda/LG-TV-Ad-Block · casenjo Sony gist ·
+!        Level1Techs webOS lockout recon (su/snu/ngfts/rdxd roles) ·
+!        hagezi SG issue #309 · UCL ACR study arXiv 2409.06203 · Netify.
+! ---------------------------------------------------------------------------
+
+! ================= SONY BRAVIA =================
+
+! Sony measurement / config-distribution backends (observed live:
+! meta/bda/cdn/cert-cdn/image.iac + cfgdst endpoints; Netify: Sony-owned)
+||ndmdhs.com^
+
+! Samba TV ACR (Sony partner since 2013; observed live: platform/preferences/
+! api.cid + tvp from both TV and app; this is the content-fingerprinting spy)
+||samba.tv^
+
+! Ad / promo / legacy telemetry endpoints
+||call.me.sel.sony.com^
+||sonybivstatic-a.akamaihd.net^
+||bravia.dl.playstation.net^
+||flingo.tv^
+||facemap.foldlife.net^
+
+! Device-hashed ad endpoints (exact, from SmartTV blocklists)
+ad8641f3cff742de893d919add74c2bb.ssm1.internet.sony.tv
+ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
+! Same pattern, any future device hash:
+/^ad[0-9a-f]{32}\.ssm[123]\.internet\.sony\.tv$/
+
+! ================= LG webOS =================
+
+! LG ad servers
+||lgsmartad.com^
+||cjpowercast.com^
+||smartclip.net^
+||smartclip.com^
+||yumenetworks.com^
+
+! Alphonso = LG's ACR ("Live Plus" content recognition)
+||alphonso.tv^
+
+! LG CDP (Content Discovery Platform): beacons, nudge/promo, recommendations,
+! user-profile + usage-pattern profiling, ad + ACR overlay services, launcher
+! callbacks, rdxd/uploadd telemetry. (Includes aic.* / eic.* prefixes.)
+||lgtvcommon.com^
+
+! Telemetry upload (crash + usage, rdxd/uploadd) on newer webOS
+||rdx2.nextlgsdp.com^
+
+! Recommender-data + service endpoints
+||rdx2.lgtvsdp.com^
+||lgtvonline.lge.com^
+
+! LG Content Store ad/stats endpoints (store itself stays reachable)
+||ad.lgappstv.com^
+||ibs.lgappstv.com^
+||ibis.lgappstv.com^
+||ibsstat.lgappstv.com^
+
+! Recommendation/AI-platform asset + telemetry workers
+||eic-gfts.lge.com^
+||aic-gfts.lge.com^
+||eic-ngfts.lge.com^
+||aic-ngfts.lge.com^
+||qt2-ngfts.lge.com^
+
+! Ad-tech/telemetry domain from two independent non-breaking lists
+||ueiwsp.com^
+
+! ============= KEEP-WORKING EXCEPTIONS ($important) =============
+! Update chains: never block these even if other lists ever do
+@@||info.update.sony.net^$important
+@@||www.sony.net^$important
+@@||update.biv.sony.tv^$important
+@@||reg.biv.sony.tv^$important
+@@||service.biv.sony.tv^$important
+@@||api.erabu.sony.tv^$important
+@@||metadata.erabu.sony.tv^$important
+@@||su.lge.com^$important
+@@||su-ssl.lge.com^$important
+@@||snu.lge.com^$important
+@@||nsu.lge.com^$important
+@@||su-dev.lge.com^$important
+@@||snu-dev.lge.com^$important
+
+! ================= OPTIONAL / HIGHER-TRADEOFF =================
+! Uncomment only if you accept the listed consequence.
+! (all verified as NOT needed for updates)
+
+! TV IoT / ThinQ integration (phone app, push) — skipping loses ThinQ features
+!||lgtviot.com^
+!||lgthinq.com^
+
+! Newer-gen telemetry; on some models the Content Store needs the
+! country-prefixed hosts under it (rdx2.* is already blocked above)
+!||nextlgsdp.com^
+
+! Content Store thumbnails/screenshots + home tiles — blocking kills store images
+!||ngfts.lge.com^
+
+! Cross-app platform telemetry (us.emp.lgsmartplatform.com)
+!||lgsmartplatform.com^
+
+! Mobile-app pairing / device linking
+!||lgtvlink.com^
+
+! LG Ad Solutions (corporate; not observed on EU TVs)
+!||lgads.tv^
+
+! Could affect Apple services on the TV (listed by samsapti as non-breaking)
+!mediaservices.cdn-apple.com
+
+! Sony notification ACK tracking — role vs TV update notices unverified
+!||ack.me.sony.com^
+
+! Base service channel of older Bravia (may be required for app connectivity
+! on some models; the device-hashed ad subdomains are blocked above instead)
+!||ssm1.internet.sony.tv^
+!||ssm2.internet.sony.tv^
+!||ssm3.internet.sony.tv^
+
+! ================= KEEP WORKING (do NOT block) =================
+! Sony:  info.update.sony.net · www.sony.net · update.biv.sony.tv ·
+!        reg.biv.sony.tv · service.biv.sony.tv · api.erabu.sony.tv ·
+!        metadata.erabu.sony.tv · ssm*.internet.sony.tv (base) ·
+!        www.sony.com · portal.store.sonyentertainmentnetwork.com
+! LG:    su.lge.com · su-ssl.lge.com · snu.lge.com · nsu.lge.com
+!        (+dev) · lgappstv.com (base) · lgtvsdp.com (base: second screen /
+!        mobile app) · ngfts.lge.com (bare: store thumbnails) ·
+!        lgsmartweb.com (voice search) · lg.com
+!
+! Not DNS-blockable (handle at router/firewall if wanted):
+! - LG hardcoded OTA fallback IP 156.147.69.32:8080
+! - TV DoH/DoT bootstrap to 8.8.8.8 / 1.1.1.1 on tcp:443 + tcp/udp:853
+!
+! Verified 2026-09-22 on live AdGuard: all KEEP domains resolve normally;
+! every blocked entry returns 0.0.0.0; Sony+LG TV observed traffic covered.
+! ---------------------------------------------------------------------------
