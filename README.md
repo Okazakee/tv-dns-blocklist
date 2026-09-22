@@ -145,7 +145,7 @@ with real traffic:
 platforms on the test network yet):
 
 - every blocked row resolves upstream before enabling, every KEEP row resolves
-- all 199 blocked rules + 130 `$important` exceptions parse cleanly; no
+- all 218 blocked rules + 131 `$important` exceptions parse cleanly; no
   exception overlaps a blocked host (no accidental unblocking)
 - zone safety reviewed host-by-host against documented breakage reports
 - device-level verification on real sets is **pending** — treat these sections
