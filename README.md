@@ -5,18 +5,24 @@ recognition) tracking. It blocks first-party analytics, viewing-data collection
 and home-screen ad endpoints — **without breaking** updates, app stores,
 second-screen/remote, voice search or streaming apps.
 
+Two tiers, one repo: **`blocklist.txt`** (default, non-breaking) and
+**`blocklist-strict.txt`** (aggressive, opt-in) — see [Tiers](#tiers).
+
 Covered platforms: **Sony BRAVIA · LG webOS · Samsung Tizen · Hisense VIDAA ·
 Vizio SmartCast (Inscape) · Roku · Amazon Fire TV · Philips (Titan OS / Net TV)
 · Xiaomi Mi TV · Panasonic VIERA** — including their ACR partners (Samba TV,
-Alphonso, Inscape, Roku ACR, Amazon ACR, Samsung Ads) and ad delivery systems.
+Alphonso, Inscape, Roku ACR, Amazon ACR, Samsung Ads), ad delivery systems and
+broadcast/HbbTV tracking.
 
 ## Usage
 
 ### AdGuard Home
-*Filters* → *DNS blocklists* → *Add blocklist* → *Add a custom list*, then paste:
+*Filters* → *DNS blocklists* → *Add blocklist* → *Add a custom list*, then paste
+one of:
 
 ```text
 https://raw.githubusercontent.com/Okazakee/tv-dns-blocklist/main/blocklist.txt
+https://raw.githubusercontent.com/Okazakee/tv-dns-blocklist/main/blocklist-strict.txt
 ```
 
 ### Pi-hole
@@ -30,10 +36,31 @@ regex rules. Works with any engine that supports host-list or Adblock rules.
 
 ```text
 tv-dns-blocklist/
-├── blocklist.txt   # the list (Adblock syntax; comments document every choice)
+├── blocklist.txt          # default tier (Adblock syntax; comments document every choice)
+├── blocklist-strict.txt   # strict tier (generated — do not edit by hand)
+├── tools/
+│   └── build-strict.py    # regenerates the strict file from blocklist.txt
 ├── README.md
-└── LICENSE         # MIT
+└── LICENSE                # MIT
 ```
+
+## Tiers
+
+- **`blocklist.txt` (default)** — telemetry, ads and ACR blocked while keeping
+  everything functional: updates, app stores, DRM/playback, second screen,
+  voice, EPG. This is the tier device-verified on a Sony BRAVIA and an LG webOS
+  TV (see [Verification](#verification)).
+- **`blocklist-strict.txt`** — the default **plus** every OPTIONAL row enabled
+  and extra rules (dead HbbTV entries, measurement zones, app telemetry,
+  generic ad networks, unknown-risk hosts). Expect degraded features: notices,
+  ThinQ/IoT extras, store thumbnails, recommendations, legacy services and some
+  app keepalives. Updates, DRM/playback, boot connectivity, app stores and
+  accounts are **still** protected — a list that bricks the TV is a bug, not a
+  tier.
+
+The strict file is generated: edit `blocklist.txt`, then run
+`python3 tools/build-strict.py` (it enables every commented OPTIONAL row,
+appends the strict extras and deduplicates).
 
 ## What gets blocked
 
@@ -150,6 +177,12 @@ platforms on the test network yet):
 - zone safety reviewed host-by-host against documented breakage reports
 - device-level verification on real sets is **pending** — treat these sections
   as evidence-based, not device-verified
+
+**2026-09-23 — strict tier**: generated from `blocklist.txt` (464 rules: 325
+blocks + 7 regex + 131 exceptions, every OPTIONAL row enabled, 0 malformed, no
+exception/block overlap) and load-tested in a throwaway AdGuard Home instance —
+filter fetched, parsed and applied; strict-only hosts return `0.0.0.0` while
+update/DRM/store hosts still resolve.
 
 ## Sources
 
