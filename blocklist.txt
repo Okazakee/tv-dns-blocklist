@@ -1,18 +1,25 @@
 ! ---------------------------------------------------------------------------
-! Sony BRAVIA + LG webOS TV telemetry / ads / ACR blocklist (curated)
-! Homepage: https://github.com/Okazakee/sony-lg-tv-blocklist · License: MIT
-! Build: 2026-09-22 · for AdGuard Home (or any Adblock-syntax DNS filter)
+! TV telemetry / ads / ACR blocklist (curated)
+! Homepage: https://github.com/Okazakee/tv-dns-blocklist · License: MIT
+! Build: 2026-09-23 · for AdGuard Home (or any Adblock-syntax DNS filter)
 ! Scope: first-party analytics/spy endpoints of Sony BRAVIA (Android/Google TV
-!        and legacy models) and LG webOS TVs, incl. their ACR partners
-!        (Samba TV, Alphonso) and ad delivery systems.
-! Verified: against live DNS traffic of both TVs on this network (AdGuard Home
-!        query log) + community lists + platform recon reports. Update/store/
-!        second-screen/voice endpoints are explicitly NOT blocked (allow
-!        exceptions included for the critical update ones).
-! Sources: Perflyst SmartTV · hkamran80/blocklists · samsapti/LG-webOS-Blocklist
-!        (non-breaking) · TheShawnMiranda/LG-TV-Ad-Block · casenjo Sony gist ·
-!        Level1Techs webOS lockout recon (su/snu/ngfts/rdxd roles) ·
-!        hagezi SG issue #309 · UCL ACR study arXiv 2409.06203 · Netify.
+!        and legacy models), LG webOS TVs and Samsung Tizen smart TVs, incl.
+!        their ACR partners (Samba TV, Alphonso, Samsung Ads) and ad delivery.
+! Verified: against live DNS traffic of the Sony + LG TVs on this network
+!        (AdGuard Home query log) + community lists + platform recon reports +
+!        DNS resolution checks (blocked targets resolve pre-enable, KEEP set
+!        resolves). Samsung: no Samsung TV on this network yet — Samsung rows
+!        are evidence-based (UCL ACR study arXiv 2409.06203, Samsung Ads
+!        policy, live resolution checks) and deliberately exclude every host
+!        with a documented breakage. Update/store/second-screen/voice
+!        endpoints are explicitly NOT blocked (allow exceptions included for
+!        the critical ones).
+! Sources: Perflyst SmartTV · hkamran80/blocklists · HaGeZi native.samsung +
+!        TIF · The Block List Project (smart-tv/tracking/ads) · samsapti/
+!        LG-webOS-Blocklist (non-breaking) · TheShawnMiranda/LG-TV-Ad-Block ·
+!        casenjo Sony gist · Level1Techs webOS recon · oisd excludes
+!        (whitelist rationale) · UCL ACR study arXiv 2409.06203 · netify.ai ·
+!        vendor pages (Samsung ACR support ANS10010616, policy.samsungrs.com).
 ! ---------------------------------------------------------------------------
 
 ! ================= SONY BRAVIA =================
@@ -78,6 +85,97 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 ! Ad-tech/telemetry domain from two independent non-breaking lists
 ||ueiwsp.com^
 
+! ================= SAMSUNG (Tizen) =================
+
+! --- ACR / viewing-data (Samsung Ads' own fingerprinting; study-confirmed) ---
+
+! ACR log ingestion + config pipeline (log-1/2/3, log-ingestion, -eu, -sa,
+! -v2-ap2, log-config, targeted-config-test, dev hosts). Whole zone is ACR.
+||samsungacr.com^
+
+! ACR client endpoint on 2016+ sets; acr<N> is the documented pattern
+||acr0.samsungcloudsolution.com^
+/^acr[0-9]+\.samsungcloudsolution\.com$/
+
+! Per-region ACR ingest (Tizen). Parent samsungcloud.tv is NOT blocked
+! (TV Plus EPG / UI images live there — see KEEP list)
+||acr-au-prd.samsungcloud.tv^
+||acr-br-prd.samsungcloud.tv^
+||acr-ca-prd.samsungcloud.tv^
+||acr-eu-prd.samsungcloud.tv^
+||acr-in-prd.samsungcloud.tv^
+||acr-kr-prd.samsungcloud.tv^
+||acr-mx-prd.samsungcloud.tv^
+||acr-nz-prd.samsungcloud.tv^
+||acr-us-prd.samsungcloud.tv^
+
+! Legacy InfoLink beacon/ACR (2013-2015 F/H-series; bursts of ~10k queries/10min)
+! NOTE: on UE40F5500-class sets the app store/login used it — whitelist this
+! line if you own that generation and the store/login breaks.
+||infolink.pavv.co.kr^
+||pavv.co.kr^
+
+! --- Samsung Ads / AdGear ad delivery ---
+
+! Ad decisioning, config, events, ad-server/ad-tracker, SSP/DSP, UDW
+||samsungads.com^
+||samsungadhub.com^
+||samsungtvads.com^
+||tvx.adgrx.com^
+||adgrx.com^
+||sspapi-prd.samsungrs.com^
+||adconsent.samsungrs.com^
+||samsungads.adsmeasurement.com^
+||img-resize-cdn-prod.samsungnyc.com^
+||sca.samsung.com^
+
+! --- App/device telemetry, logs, error dumps ---
+
+! In-app analytics SDK endpoint (Tizen TV apps + Galaxy apps)
+||ureca.samsungapps.com^
+
+! On-device logs + error dumps
+||devicelog.samsungcloudsolution.net^
+||prderrordumphsm.samsungcloudsolution.com^
+||prderrordumpssm.samsungcloudsolution.net^
+
+! Audio-fingerprint / music-ID service (ACR-adjacent)
+||musicid.samsungcloudsolution.com^
+
+! Viewing-data terms/consent endpoint (ACR/ads onboarding)
+||vdterms.samsungcloudsolution.com^
+
+! Samsung analytics service host + game promo beacons + service-window host
+||sas.samsungcloudsolution.com^
+||gamespromotion.samsungcloudsolution.com^
+||svwindow.samsungcloudsolution.com^
+
+! --- Samsung TV Plus session/log beacons (streaming itself keeps working) ---
+||tvpnlogopus.samsungcloud.tv^
+||tvpnlogopeu.samsungcloud.tv^
+||tvpnlogosus.samsungcloud.tv^
+||tvpnlogodus.samsungcloud.tv^
+||tvpndynamiclogopus.samsungcloud.tv^
+||tvpndynamiclogopeu.samsungcloud.tv^
+||tvpndynamiclogosus.samsungcloud.tv^
+||qoe.samsungcloud.tv^
+
+! --- Third-party / legacy beacons observed from Samsung sets ---
+
+! Weather app (Pelmorex/The Weather Network) tracking
+||connecttv.pelmorex.com^
+! Legacy "Telly" premium-video beacon
+||premium-videos.telly.com^
+! Legacy Internet@TV app/game telemetry (login host sso.* stays reachable)
+||log.internetat.tv^
+||game.internetat.tv^
+! Legacy AOTA beacon
+||pipeaota.com^
+! TV-side ping/telemetry beacons (single letter + "pu"; apex NOT blocked)
+/^[a-z]pu\.samsungelectronics\.com$/
+! Remote-management *test/staging* endpoint (production www.samsungrm.net kept)
+||test.samsungrm.net^
+
 ! ============= KEEP-WORKING EXCEPTIONS ($important) =============
 ! Update chains: never block these even if other lists ever do
 @@||info.update.sony.net^$important
@@ -93,6 +191,44 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 @@||nsu.lge.com^$important
 @@||su-dev.lge.com^$important
 @@||snu-dev.lge.com^$important
+
+! Samsung: update chain + connectivity check + clock sync
+@@||cdn.samsungcloudsolution.com^$important
+@@||time.samsungcloudsolution.com^$important
+@@||time.samsungcloudsolution.net^$important
+@@||otnprd8.samsungcloudsolution.net^$important
+@@||otnprd9.samsungcloudsolution.net^$important
+@@||otnprd10.samsungcloudsolution.net^$important
+@@||otnprd11.samsungcloudsolution.net^$important
+@@||otn.samsungcloudcdn.com^$important
+@@||samsungotn.net^$important
+
+! Samsung: TV Plus streaming + app store / app-auth service layer
+@@||osb-ussvc.samsungqbe.com^$important
+@@||osb-ussvc-v2.samsungqbe.com^$important
+@@||osb-apps.samsungqbe.com^$important
+@@||osb-apps-v2.samsungqbe.com^$important
+@@||gpm.samsungqbe.com^$important
+
+! Samsung: config service, liveness ping, account auth, app store, store icons,
+! boot liveness probe, remote support, TV Plus EPG/UI images, account sync
+@@||configprd.samsungcloudsolution.net^$important
+@@||lcprd1.samsungcloudsolution.net^$important
+@@||lcprd2.samsungcloudsolution.net^$important
+@@||sso.internetat.tv^$important
+@@||sc-auth.samsungosp.com^$important
+@@||eu-auth2.samsungosp.com^$important
+@@||api.samsungapps.com^$important
+@@||hub.samsungapps.com^$important
+@@||img.samsungapps.com^$important
+@@||iap.samsungapps.com^$important
+@@||d1oxlq5h9kq8q5.cloudfront.net^$important
+@@||ns11.whois.co.kr^$important
+@@||www.samsungrm.net^$important
+@@||tvpnlinupepgpeu.samsungcloud.tv^$important
+@@||tvpnlinupepgpus.samsungcloud.tv^$important
+@@||account.samsung.com^$important
+@@||samsungcloud.com^$important
 
 ! ================= OPTIONAL / HIGHER-TRADEOFF =================
 ! Uncomment only if you accept the listed consequence.
@@ -130,6 +266,58 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 !||ssm2.internet.sony.tv^
 !||ssm3.internet.sony.tv^
 
+! --- Samsung optional rows (each carries a real tradeoff) ---
+
+! Boot-time encrypted payload (app/legal blob) after the connectivity check;
+! oisd deliberately whitelists it, blocking observed harmless on modern sets
+!||fkp.samsungcloudsolution.com^
+!||fkp.samsungcloudsolution.net^
+
+! EMP app/plugin framework index + downloads (XT9 keyboard, gamepad, browser
+! component updates — NOT the app store). Perflyst issue #82 listed oempprd
+! among hosts whose blocking coincided with YouTube/Prime launch failures:
+! if apps misbehave after uncommenting, whitelist oempprd first.
+!||oempprd.samsungcloudsolution.com^
+!||oempprd.samsungcloudsolution.net^
+!||empdownprd.samsungcloudsolution.com^
+
+! Notice / policy push + CDN (only suppresses notice banners)
+!||notice.samsungcloudsolution.com^
+!||noticecdn.samsungcloudsolution.com^
+!||noticefile.samsungcloudsolution.com^
+
+! Service API gateway — contested: some Samsung-account flows use it
+!||openapi.samsung.com^
+
+! Adobe Audience Manager segments (shared with Galaxy phones / samsung.com)
+!||samsung.demdex.net^
+
+! Push gateway + SmartThings/IoT-cloud metadata (shared with phones/appliances)
+!||gld.samsungosp.com^
+!||gld.push.samsungosp.com^
+!||uimetadata.samsungiotcloud.com^
+!||invitation.samsungiotcloud.com^
+
+! Legacy ad/telemetry hosts (many now NXDOMAIN; keep only for old sets)
+!||az43064.vo.msecnd.net^
+!||i-stream.pl^
+!||ads.aimitv.com^
+!||data.arqiva.tv^
+!||cloud.arqiva.tv^
+!||bigdata.ssp.samsung.com^
+!||syncplusconfig.s3.amazonaws.com^
+!||vd.emp.prd.s3.amazonaws.com^
+!||vd.contents.prod.eu.s3.amazonaws.com^
+!Coordinator-Production-28516768.us-east-1.elb.amazonaws.com
+!||d179kwmlpc4o47.cloudfront.net^
+!||d1jwpcr0q4pcq0.cloudfront.net^
+!||d2tnx644ijgq6i.cloudfront.net^
+!||d3mjsomixevyw7.cloudfront.net^
+!||d37ju0xanoz6gh.cloudfront.net^
+
+! Ads inside the Samsung Apps store front-end (store itself must resolve)
+!||ads.samsungapps.com^
+
 ! ================= KEEP WORKING (do NOT block) =================
 ! Sony:  info.update.sony.net · www.sony.net · update.biv.sony.tv ·
 !        reg.biv.sony.tv · service.biv.sony.tv · api.erabu.sony.tv ·
@@ -139,11 +327,29 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 !        (+dev) · lgappstv.com (base) · lgtvsdp.com (base: second screen /
 !        mobile app) · ngfts.lge.com (bare: store thumbnails) ·
 !        lgsmartweb.com (voice search) · lg.com
+! Samsung: cdn.samsungcloudsolution.com (connectivity check + app boot +
+!        update check) · time.samsungcloudsolution.com (+.net) ·
+!        otnprd8/9/10/11.samsungcloudsolution.net · otn.samsungcloudcdn.com ·
+!        www.samsungotn.net / samsungotn.net (firmware OTA) ·
+!        osb-ussvc(.v2) + osb-apps(.v2) + gpm.samsungqbe.com (TV Plus +
+!        app store/auth) · configprd/lcprd1/lcprd2.samsungcloudsolution.net ·
+!        sso.internetat.tv · sc-auth/eu-auth2.samsungosp.com (account) ·
+!        samsungapps.com (base + api/hub/img/iap: store install/purchase) ·
+!        d1oxlq5h9kq8q5.cloudfront.net (store icons) · ns11.whois.co.kr ·
+!        www.samsungrm.net (remote support) · tvpnlinupepgp{eu,us} + fc +
+!        ghsimgstore.samsungcloud.tv (TV Plus EPG / UI images) ·
+!        account.samsung.com / samsungcloud.com · ivi-time.
+!        samsungcloudsolution.net · DRM/PlayReady licences (never block).
 !
 ! Not DNS-blockable (handle at router/firewall if wanted):
 ! - LG hardcoded OTA fallback IP 156.147.69.32:8080
 ! - TV DoH/DoT bootstrap to 8.8.8.8 / 1.1.1.1 on tcp:443 + tcp/udp:853
+!   (Tizen sets are known to ignore DHCP DNS — NAT-redirect :53 and drop
+!    443/853 to public resolvers on the TV VLAN for real coverage)
 !
-! Verified 2026-09-22 on live AdGuard: all KEEP domains resolve normally;
-! every blocked entry returns 0.0.0.0; Sony+LG TV observed traffic covered.
+! Verified 2026-09-22 (Sony+LG, live AdGuard): all KEEP domains resolve
+! normally; every blocked entry returns 0.0.0.0; TV traffic covered.
+! Verified 2026-09-23 (Samsung, resolution-level): blocked rows resolve
+! upstream (so the filter takes effect once enabled), KEEP rows resolve;
+! no Samsung TV on this network yet — device-level check pending.
 ! ---------------------------------------------------------------------------
