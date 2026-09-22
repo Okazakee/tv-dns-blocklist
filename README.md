@@ -187,16 +187,8 @@ update/DRM/store hosts still resolve.
 
 ## Sources
 
-Full list, with links: **[SOURCES.md](SOURCES.md)** — community blocklists
-(Perflyst / Dandelion Sprout, hkamran80, HaGeZi, 1Hosts, The Block List Project,
-ipanalytics, samsapti, TheShawnMiranda, …), investigations (UCL ACR study
-[arXiv:2409.06203](https://arxiv.org/abs/2409.06203),
-[THectic-NL/Blocklists](https://github.com/THectic-NL/Blocklists/pull/6), Ars
-Technica on the Sept 2026 LG investigation), vendor documents (Samsung ACR
-ANS10010616, Samsung Ads privacy notice, TP Vision, Roku ACR policy, VIDAA Data
-Act notice, Vizio/Inscape + FTC settlement), breakage reports (Pi-hole
-discourse, Perflyst/HaGeZi issues, Control D, IPFire) and the enumeration
-tooling (crt.sh, Cert Spotter, HackerTarget, netify.ai).
+Community blocklists, investigations, vendor documents, breakage reports and
+the enumeration tooling behind this list — all links in **[SOURCES.md](SOURCES.md)**.
 
 ## License
 
