@@ -2,24 +2,28 @@
 ! TV telemetry / ads / ACR blocklist (curated)
 ! Homepage: https://github.com/Okazakee/tv-dns-blocklist · License: MIT
 ! Build: 2026-09-23 · for AdGuard Home (or any Adblock-syntax DNS filter)
-! Scope: first-party analytics/spy endpoints of Sony BRAVIA (Android/Google TV
-!        and legacy models), LG webOS TVs and Samsung Tizen smart TVs, incl.
-!        their ACR partners (Samba TV, Alphonso, Samsung Ads) and ad delivery.
+! Scope: first-party analytics/spy endpoints of Sony BRAVIA, LG webOS,
+!        Samsung Tizen, Hisense VIDAA, Vizio SmartCast (Inscape), Roku,
+!        Amazon Fire TV, Philips (Titan OS / Net TV), Xiaomi Mi TV and
+!        Panasonic VIERA — incl. their ACR partners (Samba TV, Alphonso,
+!        Inscape, Roku ACR, Amazon ACR, Samsung Ads) and ad delivery systems.
 ! Verified: against live DNS traffic of the Sony + LG TVs on this network
 !        (AdGuard Home query log) + community lists + platform recon reports +
 !        DNS resolution checks (blocked targets resolve pre-enable, KEEP set
-!        resolves). Samsung: no Samsung TV on this network yet — Samsung rows
-!        are evidence-based (UCL ACR study arXiv 2409.06203, Samsung Ads
-!        policy, live resolution checks) and deliberately exclude every host
-!        with a documented breakage. Update/store/second-screen/voice
-!        endpoints are explicitly NOT blocked (allow exceptions included for
-!        the critical ones).
-! Sources: Perflyst SmartTV · hkamran80/blocklists · HaGeZi native.samsung +
-!        TIF · The Block List Project (smart-tv/tracking/ads) · samsapti/
-!        LG-webOS-Blocklist (non-breaking) · TheShawnMiranda/LG-TV-Ad-Block ·
-!        casenjo Sony gist · Level1Techs webOS recon · oisd excludes
-!        (whitelist rationale) · UCL ACR study arXiv 2409.06203 · netify.ai ·
-!        vendor pages (Samsung ACR support ANS10010616, policy.samsungrs.com).
+!        resolves). Other brands: no device of those platforms on this network
+!        yet — rows are evidence-based (vendor policy docs, UCL ACR study
+!        arXiv 2409.06203, HaGeZi/Perflyst/1Hosts/ipanalytics, netify.ai, CT
+!        logs) and deliberately exclude every host with a documented
+!        breakage. Update/store/DRM/second-screen/voice endpoints are
+!        explicitly NOT blocked (allow exceptions included for the critical
+!        ones).
+! Sources: Perflyst SmartTV (+ AmazonFireTV) · hkamran80/blocklists ·
+!        HaGeZi native.* + pro + TIF · 1Hosts Pro · The Block List Project ·
+!        ipanalytics device-group lists · samsapti/LG-webOS-Blocklist ·
+!        TheShawnMiranda/LG-TV-Ad-Block · casenjo Sony gist · Level1Techs
+!        webOS recon · oisd excludes · TP Vision Smart TV provider docs ·
+!        UCL ACR study arXiv 2409.06203 · netify.ai · vendor pages (Samsung
+!        ACR support ANS10010616, policy.samsungrs.com).
 ! ---------------------------------------------------------------------------
 
 ! ================= SONY BRAVIA =================
@@ -176,6 +180,187 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 ! Remote-management *test/staging* endpoint (production www.samsungrm.net kept)
 ||test.samsungrm.net^
 
+! ================= HISENSE (VIDAA) =================
+
+! --- Telemetry / diagnostic journals ---
+||ter-jrnl-eu.vidaahub.com^
+||exc-jrnl-eu.vidaahub.com^
+||policy-jrnl-eu.vidaahub.com^
+||api-logsdk.hismarttv.com^
+||unified-ter-na.hismarttv.com^
+||unified-ter.hismarttv.com^
+||unified-exc.hismarttv.com^
+||api-cloudfalcon.hismarttv.com^
+||api-gps-eu.hismarttv.com^
+
+! --- Ad / monetization / reporting backends ---
+||rpt-ads.vidaahub.com^
+||rsc-ads.vidaahub.com^
+||rpt-mntz.vidaahub.com^
+||rsc-mntz.vidaahub.com^
+||rpt-mntz-azure.vidaahub.com^
+||monetization-ad-tracking.prod-eu-c.az.vidaahub.com^
+||monetization-tenant-ads.prod-eu-c.az.vidaahub.com^
+||ads-privacy.vidaahub.com^
+||ad-cmp.hismarttv.com^
+||ad-imp.hismarttv.com^
+||ad-download.hismarttv.com^
+||ad-download-mam.hismarttv.com^
+||ads-portal-cdn.vidaatv.net^
+||tracking-vss.vidaahub.com^
+||abtest-tv.vidaahub.com^
+
+! --- Recommendation / promo / shopping surfaces (home-screen promos) ---
+||recommend-ui.vidaahub.com^
+||sttc-az-recommend-ui.vidaahub.com^
+||recommender-launcher.hismarttv.com^
+||api-4know-eu.hismarttv.com^
+||api-shoppingguider.hismarttv.com^
+
+! --- FAST / third-party trackers observed on VIDAA sets ---
+||hisense-beacons.xumo.com^
+||hisense-lite-beacons.xumo.com^
+||acr.unruly.co^
+||api.thetake.com^
+||trvdp.com^
+||de.ioam.de^
+
+! ================= VIZIO (SmartCast / Inscape) =================
+
+! Inscape = Vizio's ACR/measurement subsidiary. Whole tvinteractive.tv zone is
+! ACR capture/control/metadata (incl. Project OAR addressable-ad consortium).
+||tvinteractive.tv^
+
+! Vizio-branded ad + telemetry endpoints
+||ads.vizio.com^
+||sstreams.ads.vizio.com^
+||al-smetrics.vizio.com^
+||rlog4.vizio.com^
+||rlog_sem.vizio.com^
+||vizio.adsmeasurement.com^
+
+! SmartCast ad/telemetry subdomains (per-host — the rest of the zone is
+! functional: API, playback, EPG, catalog, voice search stay reachable)
+||impression-proxy-prod.smartcasttv.com^
+||content-engagement-metrics.smartcasttv.com^
+||personalization-prod.smartcasttv.com^
+||experiments-prod.smartcasttv.com^
+||ad-broker-prod.smartcasttv.com^
+||promotions-prod.smartcasttv.com^
+
+! Legacy VIA/VIA+ era (pre-SmartCast sets, ~2013-2015)
+||digitalhomeservices.yahoo.com^
+||widgets.yahoo.com^
+
+! ================= ROKU =================
+
+! --- Telemetry / logging (Scribe + Cooper log fleet and friends) ---
+||logs.roku.com^
+||track.sr.roku.com^
+||traces.sr.roku.com^
+||bif.sr.roku.com^
+||userdata.sr.roku.com^
+||logs.sr.roku.com^
+||item-tracking.dev.sr.roku.com^
+||assets.sr.roku.com^
+||amarillo.sb.roku.com^
+||samples.voice.cti.roku.com^
+||cloudservices.roku.com^
+||analytics.roku.com^
+||beacon.web.roku.com^
+||beacon-partner.web.roku.com^
+||pixel.web.roku.com^
+||customer-feedbacks.web.roku.com^
+||amoeba-plus.web.roku.com^
+||wwwimg.roku.com^
+||lat-services.api.data.roku.com^
+
+! --- Ad framework / home-screen ads ---
+||ads.roku.com^
+||ads-us-east-1.delivery.roku.com^
+||adservices.roku.com^
+||advertising.roku.com^
+||advertising.us-east-1.msc.roku.com^
+||ads.gcp.roku.com^
+||adsmanager.roku.com^
+||ad-eng-bl.prod.rpay.int.roku.com^
+||adeng-identity-prod3.bdp.roku.com^
+
+! --- ACR (Roku's own) + ad measurement ---
+||ravm.tv^
+||acr.roku.com^
+||roku.adsmeasurement.com^
+! Shared Nielsen ad-measurement platform (roku./vizio./samsungads. tenants)
+||admeasurement.com^
+||roku-beacons.xumo.com^
+||ravm-staging.data.roku.com^
+! NOTE: do NOT copy HaGeZi's canary host `h4g3z1-native.roku.web.app` — it is a
+! false-positive test domain, not a Roku tracker.
+
+! ================= AMAZON FIRE TV =================
+
+! --- Device telemetry / ACR / crash reporting (low breakage risk) ---
+||device-metrics-us.amazon.com^
+||unagi.amazon.com^
+||minerva.devices.a2z.com^
+||insights.video.a2z.com^
+||notify.firetv.bugsnag.appstore.a2z.com^
+||bugs.firebat.prime-video.amazon.dev^
+||mobileanalytics.us-east-1.amazonaws.com^
+||d3p8zr0ffa9t17.cloudfront.net^
+||web.diagnostic.networking.aws.dev^
+||api.statsig.com^
+||mobile-collector.newrelic.com^
+||config.ioam.de^
+||device-messaging-na.amazon.com^
+||mas-sdk.amazon.com^
+
+! ================= PHILIPS (Titan OS / Net TV) =================
+
+! Titan OS (2024+ TP Vision platform) ad + promo surfaces
+||ads.titanos.tv^
+||philips-android-promo.titanos.tv^
+||android-promo.titanos.tv^
+
+! Legacy Saphi / Net TV (ZEASN-CORIO portal stack; ad endpoints named by
+! TP Vision's own "Smart TV Platform providers" document)
+||ad.nettvservices.com^
+||legacyportal.nettvservices.com^
+||nettv.corio.com^
+
+! ================= XIAOMI (Mi TV / PatchWall) =================
+
+! Tracking / telemetry ingest
+||mitv.tracking.intl.miui.com^
+||tracking.intl.miui.com^
+||data.mistat.intl.miui.com^
+||mistat.intl.miui.com.edgesuite.net^
+||sdkconfig.ad.intl.xiaomi.com^
+||sdkconfig.ad.xiaomi.com^
+||sys.tv.india.xiaomi.com^
+
+! TV backend / content / ad platforms
+||tvboss.pandora.xiaomi.com^
+||pull.mitv.pandora.xiaomi.com^
+||dvb.pandora.xiaomi.com^
+||ptmi.gitv.pandora.xiaomi.com^
+||hook.gitv.pandora.xiaomi.com^
+||adx.tv.mi.com^
+||h5.tv.mi.com^
+||in.tv.global.mi.com^
+||api.cupid.ptqy.gitv.tv^
+||pb.bi.gitv.tv^
+||tv.app.migc.xiaomi.com^
+
+! ================= PANASONIC VIERA (bonus) =================
+
+! Telemetry / content-collection platform (subtree; the mhc-ajax/mhc-xpana
+! app-start hosts are excepted below)
+||myhomescreen.tv^
+
+! Ad/analytics beacon (Vindico/VIZIO ad-measurement suite — shared infra)
+||x2.vindicosuite.com^
+
 ! ============= KEEP-WORKING EXCEPTIONS ($important) =============
 ! Update chains: never block these even if other lists ever do
 @@||info.update.sony.net^$important
@@ -229,6 +414,113 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 @@||tvpnlinupepgpus.samsungcloud.tv^$important
 @@||account.samsung.com^$important
 @@||samsungcloud.com^$important
+
+! Hisense (VIDAA): updates, store, DRM, launcher, account, voice, messaging,
+! time sync, casting receiver
+@@||upgrade-eu.hismarttv.com^$important
+@@||ota-tv.vidaahub.com^$important
+@@||download-upgrade.hismarttv.com^$important
+@@||cdn-plugin-sync-upgrade-juui.hismarttv.com^$important
+@@||appstore-vidaa.vidaahub.com^$important
+@@||app-appstore.hismarttv.com^$important
+@@||hub-msg.vidaahub.com^$important
+@@||params-msg-eu.vidaahub.com^$important
+@@||msg-eu.hismarttv.com^$important
+@@||auth-phone-eu.hismarttv.com^$important
+@@||auth-account.hismarttv.com^$important
+@@||vod-strm.vidaahub.com^$important
+@@||drm.hismarttv.com^$important
+@@||voiceservice-eu.hismarttv.com^$important
+@@||home-launcher.hismarttv.com^$important
+@@||synctime.hismarttv.com^$important
+@@||my.vidaa.com^$important
+@@||castreceiver.vidaatv.net^$important
+
+! Vizio: SmartCast API/CDN/registration/config, OS update, NTP (hardcoded in
+! firmware — blocking causes clock drift then TLS failures), playback, EPG,
+! catalog, voice search, identity
+@@||api.vizio.com^$important
+@@||images.vizio.com^$important
+@@||announcements.vizio.com^$important
+@@||vizio.pool.ntp.org^$important
+@@||scfs.vizio.com^$important
+@@||osu.vudip.vizio.com^$important
+@@||prod.device-registration.external.plat.vizio.com^$important
+@@||prod.redwolf.external.plat.vizio.com^$important
+@@||prod.cs.vizio.com^$important
+@@||platform.vizio.com^$important
+@@||api.smartcasttv.com^$important
+@@||user-authorization-prod.smartcasttv.com^$important
+@@||video-api-prod.smartcasttv.com^$important
+@@||watchfreeplus-epg-prod.smartcasttv.com^$important
+@@||voice-search-prod.smartcasttv.com^$important
+@@||catalog-prod.smartcasttv.com^$important
+
+! Roku: device/cloud API, clock, artwork, channel store, Roku Pay, OS updates,
+! boot config, EPG/navigation, DRM/playback, voice engine, mobile pairing.
+! NOTE: never add an apex `@@||roku.com^` exception — it would unblock the
+! telemetry/ad subtrees blocked above.
+@@||api.roku.com^$important
+@@||api.rokutime.com^$important
+@@||image.roku.com^$important
+@@||therokuchannel.roku.com^$important
+@@||api.rpay.roku.com^$important
+@@||rpm.billing.roku.com^$important
+@@||tvupdate.roku.com^$important
+@@||channels.roku.com^$important
+@@||configsvc.cs.roku.com^$important
+@@||themes-service.sr.roku.com^$important
+@@||api2.sr.roku.com^$important
+@@||navigation.sr.roku.com^$important
+@@||epgreg.sr.roku.com^$important
+@@||tis.cti.roku.com^$important
+@@||prod.mobile.roku.com^$important
+@@||playback-detail.sr.roku.com^$important
+@@||voice-public.cti.roku.com^$important
+@@||my.roku.com^$important
+
+! Fire TV: connectivity checks, Appstore (discovery/search/install/licences),
+! Alexa, registration, Prime Video, OTA updates, NTP, app-launch rows
+@@||fireoscaptiveportal.com^$important
+@@||firetvcaptiveportal.com^$important
+@@||dp-discovery-na-ext.amazon.com^$important
+@@||dcape-na.amazon.com^$important
+@@||arcus-uswest.amazon.com^$important
+@@||api.amazonalexa.com^$important
+@@||avs-alexa-18-na.amazon.com^$important
+@@||ftvr-na.amazon.com^$important
+@@||msh.amazon.com^$important
+@@||mas-ext.amazon.com^$important
+@@||mas-ssr.amazon.com^$important
+@@||fls-na.amazon.com^$important
+@@||softwareupdates.amazon.com^$important
+@@||amzdigital-a.akamaihd.net^$important
+@@||atv-ps.amazon.com^$important
+@@||api.amazonvideo.com^$important
+@@||appstore.amazon.com^$important
+@@||ftv-smtv.ntp-fireos.com^$important
+@@||amazonadsi-a.akamaihd.net^$important
+
+! Philips: device auth, EPG, Titan OS app/API backends, Hue bridge interface
+@@||deviceportal.nettvservices.com^$important
+@@||epg.corio.com^$important
+@@||api.titanos.tv^$important
+@@||www.ecdinterface.philips.com^$important
+
+! Xiaomi: app store, OTA, account, EPG, video CDN, Mi Home/remote, auth
+@@||market.xiaomi.com^$important
+@@||ota.ptqy.gitv.tv^$important
+@@||account.xiaomi.com^$important
+@@||tvepg.pandora.xiaomi.com^$important
+@@||video.kts.g.mi.com^$important
+@@||api.io.mi.com^$important
+@@||authbe.sec.intl.miui.com^$important
+
+! Panasonic: app-start hosts ("No internet connection" otherwise)
+@@||mhc-ajax-eu.myhomescreen.tv^$important
+@@||mhc-ajax-eu-s2.myhomescreen.tv^$important
+@@||mhc-xpana-eu.myhomescreen.tv^$important
+@@||mhc-xpana-eu-s2.myhomescreen.tv^$important
 
 ! ================= OPTIONAL / HIGHER-TRADEOFF =================
 ! Uncomment only if you accept the listed consequence.
@@ -318,6 +610,73 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 ! Ads inside the Samsung Apps store front-end (store itself must resolve)
 !||ads.samsungapps.com^
 
+! --- Hisense optional rows ---
+
+! Server-side ad insertion + CTV ad delivery: blocking can stall playback on
+! some FAST channels (observe first)
+!||ssai.aniview.com^
+!||ads.spotx.tv^
+
+! Low-confidence VIDAA hosts (purpose inferred from naming/CT only)
+!||base-ai.vidaahub.com^
+!||detail-ui-eu.vidaahub.com^
+!||device-ecom.vidaahub.com^
+!||bo.ads-privacy.vidaahub.com^
+!||detect.hismarttv.com^
+!||cudetect.hismarttv.com^
+!||imp-cmp.hismarttv.com^
+!||mz-impr.hismarttv.com^
+!||carousel-channel.hismarttv.com^
+!||recmd-cmp.hismarttv.com^
+!||recmd-thirdcmp.hismarttv.com^
+!||shop-launcher.hismarttv.com^
+!||picture-shoppingguider.hismarttv.com^
+!||api-shoppingguider-dcdn.hismarttv.com^
+
+! Hisense web properties (shop/marketing sites, not TV-side)
+!||analytics.shop.hisense.com^
+!||sgtm.hisense.com^
+!||matomo.hisense.fr^
+!||offres-hisense.fr^
+
+! --- Vizio optional rows ---
+
+! Inscape-branded widget API (live, purpose undocumented) + corporate site
+!||widget-api.inscape.tv^
+!||inscape.tv^
+
+! --- Fire TV optional rows ---
+
+! Amazon ad system (shared web-wide infra — affects many non-TV things)
+!||mads.amazon-adsystem.com^
+!||aax-eu.amazon-adsystem.com^
+!||pinpoint.us-east-1.amazonaws.com^
+
+! Community-reported, purpose undocumented
+!||aviary.amazon.com^
+!||aviary.amazon.de^
+!||digprjsurvey.amazon.eu^
+!||todo-ta-g7g.amazon.com^
+!||dp-rsm-prod.amazon.com^
+!||dp-gw-na.amazon.com^
+!||ktpx.amazon.com^
+!||prod.amazoncrl.com^
+!||spectrum.s3.amazonaws.com^
+!amazon.dev
+
+! --- Philips optional rows ---
+
+! ZEASN Smart TV services: broad/shared-infra OEM portal — blocking the apex is
+! likely to break app launching on Saphi/Net TV sets. Observe first, then block
+! only the specific ad subdomains you see resolving.
+!||zeasn.tv^
+
+! --- Panasonic optional rows ---
+
+! Telemetry BUT also on the firmware-notification path: if blocked you are
+! notified of new firmware but may be unable to download/install it
+!||vcs.vdspf.com^
+
 ! ================= KEEP WORKING (do NOT block) =================
 ! Sony:  info.update.sony.net · www.sony.net · update.biv.sony.tv ·
 !        reg.biv.sony.tv · service.biv.sony.tv · api.erabu.sony.tv ·
@@ -340,16 +699,45 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 !        ghsimgstore.samsungcloud.tv (TV Plus EPG / UI images) ·
 !        account.samsung.com / samsungcloud.com · ivi-time.
 !        samsungcloudsolution.net · DRM/PlayReady licences (never block).
+! Hisense: upgrade-eu.hismarttv.com · ota-tv.vidaahub.com ·
+!        download-upgrade.hismarttv.com · cdn-plugin-sync-upgrade-juui ·
+!        appstore-vidaa.vidaahub.com · app-appstore.hismarttv.com ·
+!        hub-msg/params-msg-eu.vidaahub.com · msg-eu/auth-phone-eu/
+!        auth-account.hismarttv.com · vod-strm.vidaahub.com ·
+!        drm.hismarttv.com · voiceservice-eu/home-launcher/synctime ·
+!        my.vidaa.com · castreceiver.vidaatv.net
+! Vizio: api/images/announcements/scfs/platform.vizio.com ·
+!        vizio.pool.ntp.org (hardcoded NTP) · osu.vudip.vizio.com ·
+!        prod.{device-registration,redwolf,cs}.*.vizio.com ·
+!        api/user-authorization-prod/video-api-prod/watchfreeplus-epg-prod/
+!        voice-search-prod/catalog-prod.smartcasttv.com
+! Roku:  api.roku.com · api.rokutime.com · image.roku.com ·
+!        therokuchannel.roku.com · api.rpay.roku.com · rpm.billing.roku.com ·
+!        tvupdate.roku.com · channels.roku.com · configsvc.cs.roku.com ·
+!        {themes-service,api2,navigation,epgreg,playback-detail}.sr.roku.com ·
+!        tis/voice-public.cti.roku.com · prod.mobile.roku.com · my.roku.com
+! Fire TV: fireoscaptiveportal.com · firetvcaptiveportal.com ·
+!        dp-discovery-na-ext/dcape-na/arcus-uswest.amazon.com ·
+!        api.amazonalexa.com · avs-alexa-18-na.amazon.com · ftvr-na.amazon.com ·
+!        msh/mas-ext/mas-ssr/fls-na.amazon.com · softwareupdates.amazon.com ·
+!        amzdigital-a.akamaihd.net · atv-ps.amazon.com · api.amazonvideo.com ·
+!        appstore.amazon.com · ftv-smtv.ntp-fireos.com · amazonadsi-a.akamaihd.net
+! Philips: deviceportal.nettvservices.com · epg.corio.com · api.titanos.tv ·
+!        www.ecdinterface.philips.com (Hue bridge)
+! Xiaomi: market.xiaomi.com (app store) · ota.ptqy.gitv.tv ·
+!        account.xiaomi.com · tvepg.pandora.xiaomi.com · video.kts.g.mi.com ·
+!        api.io.mi.com · authbe.sec.intl.miui.com
+! Panasonic: mhc-ajax-eu(-s2)/mhc-xpana-eu(-s2).myhomescreen.tv
 !
 ! Not DNS-blockable (handle at router/firewall if wanted):
 ! - LG hardcoded OTA fallback IP 156.147.69.32:8080
 ! - TV DoH/DoT bootstrap to 8.8.8.8 / 1.1.1.1 on tcp:443 + tcp/udp:853
-!   (Tizen sets are known to ignore DHCP DNS — NAT-redirect :53 and drop
-!    443/853 to public resolvers on the TV VLAN for real coverage)
+!   (Tizen/SmartCast/VIDAA sets are known to ignore DHCP DNS — NAT-redirect
+!    :53 and drop 443/853 to public resolvers on the TV VLAN for coverage)
 !
 ! Verified 2026-09-22 (Sony+LG, live AdGuard): all KEEP domains resolve
 ! normally; every blocked entry returns 0.0.0.0; TV traffic covered.
-! Verified 2026-09-23 (Samsung, resolution-level): blocked rows resolve
-! upstream (so the filter takes effect once enabled), KEEP rows resolve;
-! no Samsung TV on this network yet — device-level check pending.
+! Verified 2026-09-23 (Samsung + multi-brand, resolution-level): blocked rows
+! resolve upstream (so the filter takes effect once enabled), KEEP rows
+! resolve; no device of those platforms on this network yet.
 ! ---------------------------------------------------------------------------
