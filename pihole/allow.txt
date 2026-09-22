@@ -1,0 +1,177 @@
+# ---------------------------------------------------------------------------
+# TV DNS Blocklist — Pi-hole KEEP-WORKING allowlist — GENERATED FILE
+# Version: 2026.09.23
+# Source: blocklist.txt (KEEP-WORKING exceptions)
+# Homepage: https://github.com/Okazakee/tv-dns-blocklist · License: MIT
+#
+# GENERATED — do not edit. Run: python3 tools/build-pihole.py
+#
+# Add this file as a *subscribed allowlist* (Pi-hole v6+; Settings → Lists).
+# Its entries are exact domains and take precedence over subscribed
+# blocklists, protecting updates/OTA, app stores, DRM/playback, boot
+# connectivity, accounts, time sync, second screen and voice hosts.
+# ---------------------------------------------------------------------------
+# ============= KEEP-WORKING EXCEPTIONS ($important) =============
+# Update chains: never block these even if other lists ever do
+info.update.sony.net
+www.sony.net
+update.biv.sony.tv
+reg.biv.sony.tv
+service.biv.sony.tv
+api.erabu.sony.tv
+metadata.erabu.sony.tv
+su.lge.com
+su-ssl.lge.com
+snu.lge.com
+nsu.lge.com
+su-dev.lge.com
+snu-dev.lge.com
+# Apex-only: some community TV lists block the bare lgtvsdp.com (second-screen
+# base). Start-anchored, so subdomains like rdx2.lgtvsdp.com stay blocked.
+lgtvsdp.com
+
+# Samsung: update chain + connectivity check + clock sync
+cdn.samsungcloudsolution.com
+time.samsungcloudsolution.com
+time.samsungcloudsolution.net
+otnprd8.samsungcloudsolution.net
+otnprd9.samsungcloudsolution.net
+otnprd10.samsungcloudsolution.net
+otnprd11.samsungcloudsolution.net
+otn.samsungcloudcdn.com
+samsungotn.net
+
+# Samsung: TV Plus streaming + app store / app-auth service layer
+osb-ussvc.samsungqbe.com
+osb-ussvc-v2.samsungqbe.com
+osb-apps.samsungqbe.com
+osb-apps-v2.samsungqbe.com
+gpm.samsungqbe.com
+
+# Samsung: config service, liveness ping, account auth, app store, store icons,
+# boot liveness probe, remote support, TV Plus EPG/UI images, account sync
+configprd.samsungcloudsolution.net
+lcprd1.samsungcloudsolution.net
+lcprd2.samsungcloudsolution.net
+sso.internetat.tv
+sc-auth.samsungosp.com
+eu-auth2.samsungosp.com
+api.samsungapps.com
+hub.samsungapps.com
+img.samsungapps.com
+iap.samsungapps.com
+d1oxlq5h9kq8q5.cloudfront.net
+ns11.whois.co.kr
+www.samsungrm.net
+tvpnlinupepgpeu.samsungcloud.tv
+tvpnlinupepgpus.samsungcloud.tv
+account.samsung.com
+samsungcloud.com
+
+# Hisense (VIDAA): updates, store, DRM, launcher, account, voice, messaging,
+# time sync, casting receiver
+upgrade-eu.hismarttv.com
+ota-tv.vidaahub.com
+download-upgrade.hismarttv.com
+cdn-plugin-sync-upgrade-juui.hismarttv.com
+appstore-vidaa.vidaahub.com
+app-appstore.hismarttv.com
+hub-msg.vidaahub.com
+params-msg-eu.vidaahub.com
+msg-eu.hismarttv.com
+auth-phone-eu.hismarttv.com
+auth-account.hismarttv.com
+vod-strm.vidaahub.com
+drm.hismarttv.com
+voiceservice-eu.hismarttv.com
+home-launcher.hismarttv.com
+synctime.hismarttv.com
+my.vidaa.com
+castreceiver.vidaatv.net
+
+# Vizio: SmartCast API/CDN/registration/config, OS update, NTP (hardcoded in
+# firmware — blocking causes clock drift then TLS failures), playback, EPG,
+# catalog, voice search, identity
+api.vizio.com
+images.vizio.com
+announcements.vizio.com
+vizio.pool.ntp.org
+scfs.vizio.com
+osu.vudip.vizio.com
+prod.device-registration.external.plat.vizio.com
+prod.redwolf.external.plat.vizio.com
+prod.cs.vizio.com
+platform.vizio.com
+api.smartcasttv.com
+user-authorization-prod.smartcasttv.com
+video-api-prod.smartcasttv.com
+watchfreeplus-epg-prod.smartcasttv.com
+voice-search-prod.smartcasttv.com
+catalog-prod.smartcasttv.com
+
+# Roku: device/cloud API, clock, artwork, channel store, Roku Pay, OS updates,
+# boot config, EPG/navigation, DRM/playback, voice engine, mobile pairing.
+# NOTE: never add an apex `@@||roku.com^` exception — it would unblock the
+# telemetry/ad subtrees blocked above.
+api.roku.com
+api.rokutime.com
+image.roku.com
+therokuchannel.roku.com
+api.rpay.roku.com
+rpm.billing.roku.com
+tvupdate.roku.com
+channels.roku.com
+configsvc.cs.roku.com
+themes-service.sr.roku.com
+api2.sr.roku.com
+navigation.sr.roku.com
+epgreg.sr.roku.com
+tis.cti.roku.com
+prod.mobile.roku.com
+playback-detail.sr.roku.com
+voice-public.cti.roku.com
+my.roku.com
+
+# Fire TV: connectivity checks, Appstore (discovery/search/install/licences),
+# Alexa, registration, Prime Video, OTA updates, NTP, app-launch rows
+fireoscaptiveportal.com
+firetvcaptiveportal.com
+dp-discovery-na-ext.amazon.com
+dcape-na.amazon.com
+arcus-uswest.amazon.com
+api.amazonalexa.com
+avs-alexa-18-na.amazon.com
+ftvr-na.amazon.com
+msh.amazon.com
+mas-ext.amazon.com
+mas-ssr.amazon.com
+fls-na.amazon.com
+softwareupdates.amazon.com
+amzdigital-a.akamaihd.net
+atv-ps.amazon.com
+api.amazonvideo.com
+appstore.amazon.com
+ftv-smtv.ntp-fireos.com
+amazonadsi-a.akamaihd.net
+
+# Philips: device auth, EPG, Titan OS app/API backends, Hue bridge interface
+deviceportal.nettvservices.com
+epg.corio.com
+api.titanos.tv
+www.ecdinterface.philips.com
+
+# Xiaomi: app store, OTA, account, EPG, video CDN, Mi Home/remote, auth
+market.xiaomi.com
+ota.ptqy.gitv.tv
+account.xiaomi.com
+tvepg.pandora.xiaomi.com
+video.kts.g.mi.com
+api.io.mi.com
+authbe.sec.intl.miui.com
+
+# Panasonic: app-start hosts ("No internet connection" otherwise)
+mhc-ajax-eu.myhomescreen.tv
+mhc-ajax-eu-s2.myhomescreen.tv
+mhc-xpana-eu.myhomescreen.tv
+mhc-xpana-eu-s2.myhomescreen.tv
+
