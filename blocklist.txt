@@ -18,15 +18,16 @@
 !        breakage. Update/store/DRM/second-screen/voice endpoints are
 !        explicitly NOT blocked (allow exceptions included for the critical
 !        ones).
-! Sources: Perflyst SmartTV (+ AmazonFireTV) · hkamran80/blocklists ·
-!        HaGeZi native.* + pro + TIF · 1Hosts Pro · The Block List Project ·
+! Sources: every source, linked, in SOURCES.md —
+!        https://github.com/Okazakee/tv-dns-blocklist/blob/main/SOURCES.md
+!        (Perflyst SmartTV + AmazonFireTV · hkamran80/blocklists · HaGeZi
+!        native.* + pro + TIF · 1Hosts Pro · The Block List Project ·
 !        ipanalytics device-group lists · samsapti/LG-webOS-Blocklist ·
-!        TheShawnMiranda/LG-TV-Ad-Block · casenjo Sony gist · Level1Techs
-!        webOS recon · oisd excludes · TP Vision Smart TV provider docs ·
-!        THectic-NL/Blocklists (Sept 2026 LG ACR enumeration, cross-referenced
-!        for the LG recommendation/AWS host families) ·
-!        UCL ACR study arXiv 2409.06203 · netify.ai · vendor pages (Samsung
-!        ACR support ANS10010616, policy.samsungrs.com).
+!        TheShawnMiranda/LG-TV-Ad-Block · casenjo Sony gist · Level1Techs webOS
+!        recon · oisd excludes · TP Vision Smart TV provider docs ·
+!        THectic-NL/Blocklists (Sept 2026 LG ACR enumeration) · UCL ACR study
+!        arXiv 2409.06203 · netify.ai · vendor pages: Samsung ACR support
+!        ANS10010616, policy.samsungrs.com).
 ! ---------------------------------------------------------------------------
 
 ! ================= SONY BRAVIA =================

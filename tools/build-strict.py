@@ -37,6 +37,8 @@ HEADER = """\
 ! Left out on purpose even here (breaks the app, not "strict"):
 !   api.distribution.hulu.com, tv-static.scdn.co (Spotify artwork),
 !   xml.opera.com (Opera TV store).
+! Sources: full linked list in SOURCES.md —
+!   https://github.com/Okazakee/tv-dns-blocklist/blob/main/SOURCES.md
 ! ---------------------------------------------------------------------------
 """
 

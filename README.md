@@ -40,6 +40,7 @@ tv-dns-blocklist/
 ├── blocklist-strict.txt   # strict tier (generated — do not edit by hand)
 ├── tools/
 │   └── build-strict.py    # regenerates the strict file from blocklist.txt
+├── SOURCES.md             # every source, linked
 ├── README.md
 └── LICENSE                # MIT
 ```
@@ -178,7 +179,7 @@ platforms on the test network yet):
 - device-level verification on real sets is **pending** — treat these sections
   as evidence-based, not device-verified
 
-**2026-09-23 — strict tier**: generated from `blocklist.txt` (464 rules: 325
+**2026-09-23 — strict tier**: generated from `blocklist.txt` (464 rules: 326
 blocks + 7 regex + 131 exceptions, every OPTIONAL row enabled, 0 malformed, no
 exception/block overlap) and load-tested in a throwaway AdGuard Home instance —
 filter fetched, parsed and applied; strict-only hosts return `0.0.0.0` while
@@ -186,16 +187,16 @@ update/DRM/store hosts still resolve.
 
 ## Sources
 
-Built from community lists, platform recon and independent research:
-Perflyst / Dandelion Sprout Smart-TV + AmazonFireTV · hkamran80/blocklists ·
-HaGeZi `native.*` + pro + TIF · 1Hosts Pro · The Block List Project ·
-ipanalytics device-group lists · samsapti/LG-webOS-Blocklist ·
-TheShawnMiranda/LG-TV-Ad-Block · casenjo (Sony) · Level1Techs webOS recon ·
-oisd excludes · TP Vision "Smart TV Platform providers" ·
-[arXiv:2409.06203](https://arxiv.org/abs/2409.06203) (UCL ACR study) ·
-netify.ai · Samsung ACR support (ANS10010616) · Samsung Ads privacy notice
-(policy.samsungrs.com) · THectic-NL/Blocklists (Sept 2026 LG ACR enumeration,
-cross-referenced for the LG recommendation/AWS host families).
+Full list, with links: **[SOURCES.md](SOURCES.md)** — community blocklists
+(Perflyst / Dandelion Sprout, hkamran80, HaGeZi, 1Hosts, The Block List Project,
+ipanalytics, samsapti, TheShawnMiranda, …), investigations (UCL ACR study
+[arXiv:2409.06203](https://arxiv.org/abs/2409.06203),
+[THectic-NL/Blocklists](https://github.com/THectic-NL/Blocklists/pull/6), Ars
+Technica on the Sept 2026 LG investigation), vendor documents (Samsung ACR
+ANS10010616, Samsung Ads privacy notice, TP Vision, Roku ACR policy, VIDAA Data
+Act notice, Vizio/Inscape + FTC settlement), breakage reports (Pi-hole
+discourse, Perflyst/HaGeZi issues, Control D, IPFire) and the enumeration
+tooling (crt.sh, Cert Spotter, HackerTarget, netify.ai).
 
 ## License
 
