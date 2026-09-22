@@ -1,27 +1,40 @@
 # TV DNS Blocklist
 
 Curated DNS blocklist for smart-TV telemetry, ads and ACR (automatic content
-recognition) tracking. It blocks first-party analytics, viewing-data collection
-and home-screen ad endpoints — **without breaking** updates, app stores,
-second-screen/remote, voice search or streaming apps.
+recognition) tracking — **non-breaking by design**: it blocks first-party
+analytics, viewing-data collection and home-screen ad endpoints while updates,
+app stores, DRM/playback, second screen and voice search keep working.
+
+- **What keeps working** — updates/OTA, app stores, DRM & playback, EPG,
+  accounts, time sync, second screen, voice — protected with `$important`
+  exceptions that also win over other subscribed lists.
+- **What it blocks** — per-platform analytics, ACR and ad endpoints on ten
+  platforms: Sony BRAVIA · LG webOS · Samsung Tizen · Hisense VIDAA · Vizio
+  SmartCast (Inscape) · Roku · Fire TV · Philips (Titan OS / Net TV) · Xiaomi
+  Mi TV · Panasonic VIERA — incl. ACR partners (Samba TV, Alphonso, Inscape,
+  Roku ACR, Amazon ACR, Samsung Ads) and broadcast/HbbTV tracking.
+- **How far it's verified** — device-verified on real Sony BRAVIA and LG webOS
+  sets; resolution-level for the other platforms (see
+  [Verification](#verification)).
 
 Two tiers, one repo: **`blocklist.txt`** (default, non-breaking) and
-**`blocklist-strict.txt`** (aggressive, opt-in) — see [Tiers](#tiers).
-
-Covered platforms: **Sony BRAVIA · LG webOS · Samsung Tizen · Hisense VIDAA ·
-Vizio SmartCast (Inscape) · Roku · Amazon Fire TV · Philips (Titan OS / Net TV)
-· Xiaomi Mi TV · Panasonic VIERA** — including their ACR partners (Samba TV,
-Alphonso, Inscape, Roku ACR, Amazon ACR, Samsung Ads), ad delivery systems and
-broadcast/HbbTV tracking.
+**`blocklist-strict.txt`** (aggressive, opt-in — see [Tiers](#tiers)).
 
 ## Usage
 
+**Start with `blocklist.txt`** — the default, non-breaking tier and what this
+repo is built around. Pick `blocklist-strict.txt` only if you knowingly accept
+degraded features (see [Tiers](#tiers)).
+
 ### AdGuard Home
 *Filters* → *DNS blocklists* → *Add blocklist* → *Add a custom list*, then paste
-one of:
+**one** of:
 
 ```text
+# default tier — recommended, non-breaking
 https://raw.githubusercontent.com/Okazakee/tv-dns-blocklist/main/blocklist.txt
+
+# strict tier — opt-in, may degrade features
 https://raw.githubusercontent.com/Okazakee/tv-dns-blocklist/main/blocklist-strict.txt
 ```
 
@@ -47,7 +60,7 @@ tv-dns-blocklist/
 
 ## Tiers
 
-- **`blocklist.txt` (default)** — telemetry, ads and ACR blocked while keeping
+- **`blocklist.txt` (default — recommended)** — telemetry, ads and ACR blocked while keeping
   everything functional: updates, app stores, DRM/playback, second screen,
   voice, EPG. This is the tier device-verified on a Sony BRAVIA and an LG webOS
   TV (see [Verification](#verification)).
@@ -140,6 +153,14 @@ The full list lives in the KEEP-WORKING section of `blocklist.txt`. A commented
 OPTIONAL section at the bottom holds higher-tradeoff entries (ThinQ/IoT, Amazon
 ad system, ZEASN `zeasn.tv`, legacy hosts, …) — uncomment only if you accept
 the consequence listed there.
+
+### Breakage policy
+
+Documented breakage beats coverage: a host with a documented breakage never
+enters the default list — if it has to stay reachable it gets an `$important`
+exception, and anything else that turns out to break gets narrowed to the exact
+subdomain or removed, with the reason documented in `blocklist.txt`. The
+higher-tradeoff entries live in the strict tier (opt-in) instead of in your TV.
 
 ## Limitations
 
