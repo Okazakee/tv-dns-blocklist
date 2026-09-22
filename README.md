@@ -18,7 +18,8 @@ app stores, DRM/playback, second screen and voice search keep working.
   [Verification](#verification)).
 
 Two tiers, one repo: **`blocklist.txt`** (default, non-breaking) and
-**`blocklist-strict.txt`** (aggressive, opt-in — see [Tiers](#tiers)).
+**`blocklist-strict.txt`** (aggressive, opt-in — see [Tiers](#tiers)) — plus
+generated **Pi-hole** variants (see [Usage](#usage)).
 
 ## Usage
 
@@ -39,11 +40,30 @@ https://raw.githubusercontent.com/Okazakee/tv-dns-blocklist/main/blocklist-stric
 ```
 
 ### Pi-hole
-*Group Management* → *Adlists* → add the same URL → `pihole -g`.
+Use the generated Pi-hole variant — **not** the AdGuard files (gravity only
+understands plain domains and `||domain^` wildcard rules; exceptions,
+`$important` and regex rules would be ignored):
+
+```text
+# blocklist — default tier
+https://raw.githubusercontent.com/Okazakee/tv-dns-blocklist/main/pihole/block.txt
+# blocklist — strict tier (pick this OR the default, not both)
+https://raw.githubusercontent.com/Okazakee/tv-dns-blocklist/main/pihole/block-strict.txt
+# allowlist — add this too; it protects updates / stores / DRM (Pi-hole v6+)
+https://raw.githubusercontent.com/Okazakee/tv-dns-blocklist/main/pihole/allow.txt
+```
+
+*Settings → Lists*: add the blocklist URL as a **blocklist** and the allowlist
+URL as an **allowlist** (subscribed allowlists require Pi-hole v6+), then
+`pihole -g`. The 7 regex rules can't live in a subscribed list — add them via
+Pi-hole's regex denylist if you want that coverage.
 
 ### Other DNS filters
-Standard Adblock syntax — `||domain^` blocks, `@@…$important` exceptions and
-regex rules. Works with any engine that supports host-list or Adblock rules.
+`blocklist.txt` uses full Adblock/AdGuard syntax — `||domain^` blocks,
+`@@…$important` exceptions (they outrank plain blocking rules, from any list)
+and regex rules. Use it with an engine that implements the full semantics
+(e.g. AdGuard Home). Engines with partial Adblock support (Pi-hole) should use
+the generated `pihole/` variant instead.
 
 ## Repository layout
 
@@ -51,9 +71,17 @@ regex rules. Works with any engine that supports host-list or Adblock rules.
 tv-dns-blocklist/
 ├── blocklist.txt          # default tier (Adblock syntax; comments document every choice)
 ├── blocklist-strict.txt   # strict tier (generated — do not edit by hand)
+├── pihole/
+│   ├── block.txt          # default tier, Pi-hole variant (generated)
+│   ├── block-strict.txt   # strict tier, Pi-hole variant (generated)
+│   └── allow.txt          # KEEP-WORKING hosts as allowlist (generated — subscribe it!)
 ├── tools/
-│   └── build-strict.py    # regenerates the strict file from blocklist.txt
+│   ├── build-strict.py    # regenerates blocklist-strict.txt from blocklist.txt
+│   ├── build-pihole.py    # regenerates the pihole/ outputs
+│   └── validate.py        # repo validation (runs in CI on every push)
+├── .github/workflows/validate.yml
 ├── SOURCES.md             # every source, linked
+├── CHANGELOG.md
 ├── README.md
 └── LICENSE                # MIT
 ```
@@ -74,7 +102,9 @@ tv-dns-blocklist/
 
 The strict file is generated: edit `blocklist.txt`, then run
 `python3 tools/build-strict.py` (it enables every commented OPTIONAL row,
-appends the strict extras and deduplicates).
+appends the strict extras and deduplicates). The `pihole/` outputs are
+generated too (`python3 tools/build-pihole.py`); CI fails if a generated file
+is out of sync with its source.
 
 ## What gets blocked
 
@@ -132,7 +162,8 @@ measurement (INFOnline, AT Internet, Nielsen) and connected-TV app telemetry.
 
 Everything needed to update, install, authenticate and play is protected with
 `$important` exceptions — they also win over other subscribed lists that
-wrongly block these hosts. Highlights:
+wrongly block these hosts (Pi-hole: the same hosts ship as `pihole/allow.txt`,
+add it as a subscribed allowlist). Highlights:
 
 - **Updates / OTA** — Sony `*.biv.sony.tv` + `info.update.sony.net` · LG
   `su`/`snu`/`nsu.lge.com` · Samsung `otnprd8-11` + `samsungotn.net` · Hisense
@@ -195,7 +226,9 @@ platforms on the test network yet):
 
 - every blocked row resolves upstream before enabling, every KEEP row resolves
 - all 218 blocked rules + 131 `$important` exceptions parse cleanly; no
-  exception overlaps a blocked host (no accidental unblocking)
+  exception is defeated by an exact block rule (the four Panasonic app-start
+  hosts sit under the `myhomescreen.tv` zone block by design — their
+  `$important` exception outranks it)
 - zone safety reviewed host-by-host against documented breakage reports
 - device-level verification on real sets is **pending** — treat these sections
   as evidence-based, not device-verified
@@ -205,6 +238,10 @@ blocks + 7 regex + 131 exceptions, every OPTIONAL row enabled, 0 malformed, no
 exception/block overlap) and load-tested in a throwaway AdGuard Home instance —
 filter fetched, parsed and applied; strict-only hosts return `0.0.0.0` while
 update/DRM/store hosts still resolve.
+
+**2026-09-23 — automated**: CI runs `tools/validate.py` on every push/PR —
+rule syntax and normalization, duplicate detection, KEEP-protection checks and
+a rule-by-rule diff of every generated file against its source.
 
 ## Sources
 

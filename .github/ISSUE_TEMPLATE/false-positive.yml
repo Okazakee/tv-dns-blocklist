@@ -1,0 +1,76 @@
+name: TV feature broken (false positive)
+description: >-
+  A blocking rule broke something on your TV — updates, playback, app store,
+  login, EPG, casting, etc. Critical false positives (updates / playback /
+  authentication / store) are fixed with priority over adding new coverage.
+title: "[breakage] "
+body:
+  - type: input
+    id: brand-model
+    attributes:
+      label: TV brand & model
+      placeholder: e.g. Sony XR-A80J, LG OLED65C3, Samsung QN90D
+    validations:
+      required: true
+
+  - type: input
+    id: os-version
+    attributes:
+      label: OS / firmware version
+      placeholder: e.g. Google TV 12, webOS 23, Tizen 7.0
+
+  - type: input
+    id: region
+    attributes:
+      label: Country / region
+      placeholder: e.g. Italy (EU)
+
+  - type: dropdown
+    id: dns-software
+    attributes:
+      label: DNS filtering software
+      options:
+        - AdGuard Home
+        - AdGuard DNS
+        - Pi-hole
+        - Other
+
+  - type: dropdown
+    id: tier
+    attributes:
+      label: List tier
+      options:
+        - default (blocklist.txt / pihole/block.txt)
+        - strict (blocklist-strict.txt / pihole/block-strict.txt)
+        - not sure
+
+  - type: textarea
+    id: broken-feature
+    attributes:
+      label: What broke
+      description: What exactly stopped working, and when?
+      placeholder: e.g. "Firmware update check fails with error X since I enabled the list"
+    validations:
+      required: true
+
+  - type: input
+    id: affected-domain
+    attributes:
+      label: Affected domain(s), if known
+      placeholder: e.g. info.update.sony.net
+
+  - type: textarea
+    id: query-log
+    attributes:
+      label: Query-log excerpt
+      description: Paste the relevant blocked queries from your DNS filter's query log.
+      render: text
+
+  - type: dropdown
+    id: disabling-fixes
+    attributes:
+      label: Does disabling this list fix it?
+      options:
+        - "Yes"
+        - "No"
+        - Not tried
