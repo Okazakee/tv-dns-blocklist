@@ -4,6 +4,20 @@ Releases are tagged `vYYYY.MM.DD`; the same version appears in the header of
 every published list. Generated files (`blocklist-strict.txt`, `pihole/*`) are
 rebuilt from `blocklist.txt` — see `tools/`.
 
+## v2026.10.01 — maintenance release
+
+- **Roku** — added `||ads.rokuapi.net^` (Roku's ad API domain; currently dark —
+  no A/CNAME upstream — blocked preventively like the other currently-dark Roku
+  hosts).
+- **Fire TV (optional → strict)** — `!||aax-ott-sdk.amazon-adsystem.amazon.com^`
+  (Amazon OTT ads SDK; live-verified CNAME into the APS ad bid lake
+  `s2s-iad.stv.bid-na.ads.aps.amazon-adsystem.com`). Strict tier only — the
+  default list is unchanged.
+- **Docs** — the HaGeZi canary note now covers both dotted and hyphen forms of
+  `h4g3z1-native*` hosts, so upstream renames don't trigger re-evaluation.
+- Counts: default 219 blocks + 7 regex + 131 exceptions (357 rules); strict 328
+  + 7 + 131 (466 rules). Generated files rebuilt; validation clean (0 errors).
+
 ## v2026.09.23 — first tagged release
 
 **Coverage** — telemetry, ads and ACR endpoints of ten platforms, plus

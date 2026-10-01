@@ -206,10 +206,18 @@ higher-tradeoff entries live in the strict tier (opt-in) instead of in your TV.
   (documented breakages: `cdn.samsungcloudsolution.com` → YouTube dies,
   `samsungqbe.com` → TV Plus + app store, `api.vizio.com` → SmartCast dies).
   The list blocks per host instead.
-- `h4g3z1-native.*.web.app` hosts appear in some public lists but are a
-  false-positive canary, not trackers — do not copy them.
+- `h4g3z1-native*` hosts under `*.web.app` appear in some public lists but are
+  a false-positive canary, not trackers — do not copy them. Both the dotted and
+  the hyphen forms (`…native.roku.…` / `…native-roku.…`) stay out: upstream
+  renames them occasionally, so treat every variant as excluded.
 
 ## Verification
+
+**2026-10-01 — maintenance** (v2026.10.01): added `||ads.rokuapi.net^` to Roku
+(dark upstream — no A/CNAME — blocked preventively, like the other
+currently-dark Roku hosts) and `!||aax-ott-sdk.amazon-adsystem.amazon.com^` to
+the Fire TV optional group (strict tier only; live-verified CNAME into the APS
+ad bid lake). Canary note now covers dotted and hyphen forms.
 
 **2026-09-22 — Sony + LG, device-verified** on a live AdGuard Home instance
 with real traffic:
@@ -225,7 +233,7 @@ with real traffic:
 platforms on the test network yet):
 
 - every blocked row resolves upstream before enabling, every KEEP row resolves
-- all 218 blocked rules + 131 `$important` exceptions parse cleanly; no
+- all 219 blocked rules + 131 `$important` exceptions parse cleanly; no
   exception is defeated by an exact block rule (the four Panasonic app-start
   hosts sit under the `myhomescreen.tv` zone block by design — their
   `$important` exception outranks it)
@@ -233,7 +241,7 @@ platforms on the test network yet):
 - device-level verification on real sets is **pending** — treat these sections
   as evidence-based, not device-verified
 
-**2026-09-23 — strict tier**: generated from `blocklist.txt` (464 rules: 326
+**2026-09-23 — strict tier**: generated from `blocklist.txt` (466 rules: 328
 blocks + 7 regex + 131 exceptions, every OPTIONAL row enabled, 0 malformed, no
 exception/block overlap) and load-tested in a throwaway AdGuard Home instance —
 filter fetched, parsed and applied; strict-only hosts return `0.0.0.0` while

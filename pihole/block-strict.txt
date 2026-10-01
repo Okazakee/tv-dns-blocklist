@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------------
 # TV DNS Blocklist — Pi-hole blocklist (strict tier) — GENERATED FILE
-# Version: 2026.09.23
+# Version: 2026.10.01
 # Source: blocklist-strict.txt
 # Homepage: https://github.com/Okazakee/tv-dns-blocklist · License: MIT
 #
@@ -285,6 +285,7 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 ||advertising.roku.com^
 ||advertising.us-east-1.msc.roku.com^
 ||ads.gcp.roku.com^
+||ads.rokuapi.net^
 ||adsmanager.roku.com^
 ||ad-eng-bl.prod.rpay.int.roku.com^
 ||adeng-identity-prod3.bdp.roku.com^
@@ -297,8 +298,10 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 ||admeasurement.com^
 ||roku-beacons.xumo.com^
 ||ravm-staging.data.roku.com^
-# NOTE: do NOT copy HaGeZi's canary host `h4g3z1-native.roku.web.app` — it is a
-# false-positive test domain, not a Roku tracker.
+# NOTE: do NOT copy HaGeZi's canary hosts — `h4g3z1-native*` under *.web.app in
+# any brand variant and either form (`h4g3z1-native.roku.web.app` or
+# `h4g3z1-native-roku.web.app`): false-positive test domains, not trackers.
+# Upstream renames them occasionally; treat every variant as excluded.
 
 # ================= AMAZON FIRE TV =================
 
@@ -599,6 +602,7 @@ coordinator-production-28516768.us-east-1.elb.amazonaws.com
 # Amazon ad system (shared web-wide infra — affects many non-TV things)
 ||mads.amazon-adsystem.com^
 ||aax-eu.amazon-adsystem.com^
+||aax-ott-sdk.amazon-adsystem.amazon.com^
 ||pinpoint.us-east-1.amazonaws.com^
 ||mads-eu.amazon.com^
 
