@@ -4,6 +4,18 @@ Releases are tagged `vYYYY.MM.DD`; the same version appears in the header of
 every published list. Generated files (`blocklist-strict.txt`, `pihole/*`) are
 rebuilt from `blocklist.txt` — see `tools/`.
 
+## v2026.10.07 — maintenance release
+
+- **LG webOS — Content Store fix (device-verified)**: `rdx2.lgtvsdp.com`,
+  `lgtvonline.lge.com`, `eic-ngfts.lge.com` and `lgrecommends.lgappstv.com`
+  moved from block rules to `$important` KEEP exceptions — on a live webOS set
+  the store failed with a network error (`-102`) while they were blocked. The
+  wide `*-gfts`/`*-ngfts` workers and the per-country AWS backends stay
+  blocked; being `$important`, the exceptions also win over other subscribed
+  lists that block these hosts.
+- Counts: default 215 blocks + 7 regex + 135 exceptions (357 rules); strict 324
+  + 7 + 135 (466 rules). Generated files rebuilt; validation clean (0 errors).
+
 ## v2026.10.01 — maintenance release
 
 - **Roku** — added `||ads.rokuapi.net^` (Roku's ad API domain; currently dark —

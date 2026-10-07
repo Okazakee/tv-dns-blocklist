@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------------
 # TV DNS Blocklist — Pi-hole KEEP-WORKING allowlist — GENERATED FILE
-# Version: 2026.10.01
+# Version: 2026.10.07
 # Source: blocklist.txt (KEEP-WORKING exceptions)
 # Homepage: https://github.com/Okazakee/tv-dns-blocklist · License: MIT
 #
@@ -27,8 +27,16 @@ nsu.lge.com
 su-dev.lge.com
 snu-dev.lge.com
 # Apex-only: some community TV lists block the bare lgtvsdp.com (second-screen
-# base). Start-anchored, so subdomains like rdx2.lgtvsdp.com stay blocked.
+# base). Start-anchored (does not affect subdomains).
 lgtvsdp.com
+
+# Content Store requirements (live-verified 2026-10-07): the store fails with
+# -102 when these are blocked. Community lists may still block them, so the
+# $important exceptions keep the store working for combined setups.
+rdx2.lgtvsdp.com
+lgtvonline.lge.com
+eic-ngfts.lge.com
+lgrecommends.lgappstv.com
 
 # Samsung: update chain + connectivity check + clock sync
 cdn.samsungcloudsolution.com

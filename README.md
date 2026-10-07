@@ -114,11 +114,10 @@ hashes) and legacy ad/promo endpoints.
 
 **LG webOS** — ad servers (`lgsmartad.com`, `cjpowercast.com`, `smartclip.*`,
 `yumenetworks.com`), Alphonso ACR, the CDP tracking platform
-(`lgtvcommon.com`), telemetry/recommender uploads (`rdx2.*`,
-`lgtvonline.lge.com`), the recommendation/ad family
-(`lgrecommends.lgappstv.com`) and its per-country AWS backends
-(`*-lgsmartad-com.aws-prd.net`, `*-rdx2-lgtvsdp-com.aws-prd.net`),
-content-store beacons and recommendation workers (`*-gfts`/`*-ngfts.lge.com`).
+(`lgtvcommon.com`), telemetry uploads (`rdx2.nextlgsdp.com`) and per-country
+AWS backends (`*-lgsmartad-com.aws-prd.net`, `*-rdx2-lgtvsdp-com.aws-prd.net`),
+content-store beacons and recommendation workers (`*-gfts`/`*-ngfts.lge.com` —
+`eic-ngfts` excepted: the Content Store needs it, see below).
 
 **Samsung Tizen** — the full ACR pipeline (`samsungacr.com`, `acr0` + `acr<N>`
 regex, `acr-<cc>-prd.samsungcloud.tv`), Samsung Ads/AdGear delivery
@@ -171,8 +170,10 @@ add it as a subscribed allowlist). Highlights:
   `tvupdate.roku.com` · Fire TV `softwareupdates.amazon.com` · Xiaomi
   `ota.ptqy.gitv.tv`
 - **App stores & installs** — Samsung `samsungapps.com` + `osb-apps*` · LG
-  `lgappstv.com` · Roku `channels.roku.com` · Fire TV `msh` /
-  `appstore.amazon.com` · Xiaomi `market.xiaomi.com`
+  `lgappstv.com` + Content Store hosts (`rdx2.lgtvsdp.com`,
+  `lgtvonline.lge.com`, `eic-ngfts.lge.com`, `lgrecommends.lgappstv.com`) ·
+  Roku `channels.roku.com` · Fire TV `msh` / `appstore.amazon.com` · Xiaomi
+  `market.xiaomi.com`
 - **Playback, DRM & EPG** — Roku `playback-detail.sr.roku.com` · Vizio
   `watchfreeplus-epg-prod` · Xiaomi `tvepg` · Samsung TV Plus EPG and UI
   images · Widevine/PlayReady licence paths
@@ -212,6 +213,13 @@ higher-tradeoff entries live in the strict tier (opt-in) instead of in your TV.
   renames them occasionally, so treat every variant as excluded.
 
 ## Verification
+
+**2026-10-07 — maintenance** (v2026.10.07): LG Content Store fix — on a live
+webOS set the store failed with a network error (`-102`) while
+`rdx2.lgtvsdp.com`, `lgtvonline.lge.com`, `eic-ngfts.lge.com` and
+`lgrecommends.lgappstv.com` were blocked. All four moved to `$important` KEEP
+exceptions (the wide `*-gfts`/`*-ngfts` workers and per-country AWS backends
+stay blocked); store verified working, control hosts still return `0.0.0.0`.
 
 **2026-10-01 — maintenance** (v2026.10.01): added `||ads.rokuapi.net^` to Roku
 (dark upstream — no A/CNAME — blocked preventively, like the other

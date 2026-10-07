@@ -1,6 +1,6 @@
 ! ---------------------------------------------------------------------------
 ! Title: TV DNS Blocklist — smart-TV telemetry / ads / ACR (curated)
-! Version: 2026.10.01
+! Version: 2026.10.07
 ! Homepage: https://github.com/Okazakee/tv-dns-blocklist · License: MIT
 ! Expires: 1 day · for AdGuard Home (full Adblock syntax). Pi-hole users: use
 ! the generated pihole/ variant — see README.
@@ -69,8 +69,8 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 ||rdx2.nextlgsdp.com^
 
 ! Recommender-data + service endpoints
-||rdx2.lgtvsdp.com^
-||lgtvonline.lge.com^
+! rdx2.lgtvsdp.com · lgtvonline.lge.com → moved to KEEP-WORKING (2026-10-07):
+! the Content Store fails with -102 when they are blocked (live-verified).
 
 ! LG Content Store ad/stats endpoints (store itself stays reachable)
 ||ad.lgappstv.com^
@@ -81,9 +81,9 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 ! Recommendation/AI-platform asset + telemetry workers
 ||eic-gfts.lge.com^
 ||aic-gfts.lge.com^
-||eic-ngfts.lge.com^
 ||aic-ngfts.lge.com^
 ||qt2-ngfts.lge.com^
+! eic-ngfts.lge.com → moved to KEEP-WORKING (2026-10-07, Content Store).
 
 ! Ad-tech/telemetry domain from two independent non-breaking lists
 ||ueiwsp.com^
@@ -92,7 +92,7 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 ! all live-verified; source: Sept 2026 LG-TV investigation cross-referenced via
 ! THectic-NL/Blocklists — every pattern resolves only for provisioned country
 ! codes, so no wildcard risk)
-||lgrecommends.lgappstv.com^
+! lgrecommends.lgappstv.com → moved to KEEP-WORKING (2026-10-07, Content Store).
 /^[a-z0-9]{2,4}-ad-lgsmartad-com\.aws-prd\.net$/
 /^[a-z0-9]{2,4}-info-lgsmartad-com\.aws-prd\.net$/
 /^[a-z0-9]{2,4}-rdx2-lgtvsdp-com\.aws-prd\.net$/
@@ -421,8 +421,16 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 @@||su-dev.lge.com^$important
 @@||snu-dev.lge.com^$important
 ! Apex-only: some community TV lists block the bare lgtvsdp.com (second-screen
-! base). Start-anchored, so subdomains like rdx2.lgtvsdp.com stay blocked.
+! base). Start-anchored (does not affect subdomains).
 @@|lgtvsdp.com^$important
+
+! Content Store requirements (live-verified 2026-10-07): the store fails with
+! -102 when these are blocked. Community lists may still block them, so the
+! $important exceptions keep the store working for combined setups.
+@@||rdx2.lgtvsdp.com^$important
+@@||lgtvonline.lge.com^$important
+@@||eic-ngfts.lge.com^$important
+@@||lgrecommends.lgappstv.com^$important
 
 ! Samsung: update chain + connectivity check + clock sync
 @@||cdn.samsungcloudsolution.com^$important
@@ -738,6 +746,8 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 ! LG:    su.lge.com · su-ssl.lge.com · snu.lge.com · nsu.lge.com
 !        (+dev) · lgappstv.com (base) · lgtvsdp.com (base: second screen /
 !        mobile app) · ngfts.lge.com (bare: store thumbnails) ·
+!        rdx2.lgtvsdp.com · lgtvonline.lge.com · eic-ngfts.lge.com ·
+!        lgrecommends.lgappstv.com (Content Store, 2026-10-07) ·
 !        lgsmartweb.com (voice search) · lg.com
 ! Samsung: cdn.samsungcloudsolution.com (connectivity check + app boot +
 !        update check) · time.samsungcloudsolution.com (+.net) ·
@@ -793,4 +803,8 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 ! Verified 2026-09-23 (Samsung + multi-brand, resolution-level): blocked rows
 ! resolve upstream (so the filter takes effect once enabled), KEEP rows
 ! resolve; no device of those platforms on this network yet.
+! Verified 2026-10-07 (LG webOS, live device): store-required hosts moved to
+! KEEP (rdx2.lgtvsdp.com, lgtvonline.lge.com, eic-ngfts.lge.com,
+! lgrecommends.lgappstv.com) — Content Store works, control hosts still
+! blocked.
 ! ---------------------------------------------------------------------------
