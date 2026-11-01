@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------------
 # TV DNS Blocklist — Pi-hole blocklist (default tier) — GENERATED FILE
-# Version: 2026.10.07
+# Version: 2026.11.01
 # Source: blocklist.txt
 # Homepage: https://github.com/Okazakee/tv-dns-blocklist · License: MIT
 #
@@ -136,6 +136,11 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 
 # --- App/device telemetry, logs, error dumps ---
 
+# Samsung Device Insight data ingestion (GCP endpoints; the atlas.samsung.com
+# apex is NODATA by design — per-host rules only, that zone is mixed)
+||dls.di.atlas.samsung.com^
+||regi.di.atlas.samsung.com^
+
 # In-app analytics SDK endpoint (Tizen TV apps + Galaxy apps)
 ||ureca.samsungapps.com^
 
@@ -169,6 +174,8 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 
 # Weather app (Pelmorex/The Weather Network) tracking
 ||connecttv.pelmorex.com^
+# Xumo FAST-platform beacon served to Samsung TV Plus surfaces
+||samsung-beacons.xumo.com^
 # Legacy "Telly" premium-video beacon
 ||premium-videos.telly.com^
 # Legacy Internet@TV app/game telemetry (login host sso.* stays reachable)
@@ -241,6 +248,8 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 ||rlog4.vizio.com^
 ||rlog_sem.vizio.com^
 ||vizio.adsmeasurement.com^
+# Xumo FAST-platform beacon served to SmartCast sets
+||vizio-beacons.xumo.com^
 
 # SmartCast ad/telemetry subdomains (per-host — the rest of the zone is
 # functional: API, playback, EPG, catalog, voice search stay reachable)
@@ -328,6 +337,8 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 ||ads.titanos.tv^
 ||philips-android-promo.titanos.tv^
 ||android-promo.titanos.tv^
+# Xumo FAST-platform beacon served to Titan OS sets
+||philips-beacons.xumo.com^
 
 # Legacy Saphi / Net TV (ZEASN-CORIO portal stack; ad endpoints named by
 # TP Vision's own "Smart TV Platform providers" document)
@@ -367,6 +378,8 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 
 # Ad/analytics beacon (Vindico ad-measurement suite — shared infra)
 ||vindicosuite.com^
+# Xumo FAST-platform beacon served to VIERA sets
+||panasonic-beacons.xumo.com^
 
 # ========== BROADCAST / HBBTV + MEASUREMENT TRACKERS ==========
 # Hit by TV tuners/HbbTV apps and connected-TV apps. Curated from Perflyst's
@@ -395,6 +408,8 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 # Connected-TV app telemetry
 ||7345023508.fxmconnect.com^
 ||7345023508.fxm9485766783.com^
+# Xumo FAST-platform beacon shared by Android TV and other CTV builds
+||android-tv-beacons.xumo.com^
 
 # ===== KEEP-WORKING EXCEPTIONS (135) → moved to pihole/allow.txt; add it as a subscribed allowlist =====
 # Update chains: never block these even if other lists ever do
@@ -524,6 +539,21 @@ ad8641f3cff742de893d919add74c2bb.ssm2.internet.sony.tv
 
 # Ads inside the Samsung Apps store front-end (store itself must resolve)
 #||ads.samsungapps.com^
+
+# --- Xiaomi optional rows ---
+# Ad-SDK base config endpoints shared by the PatchWall/app stack (the
+# ad-specific sdkconfig.ad.* hosts are already in the default tier)
+#||sdkconfig.xiaomi.com^
+#||sdkconfig.eu.xiaomi.com^
+#||sdkconfig.india.xiaomi.com^
+#||sdkconfig.intl.xiaomi.com^
+#||sdkconfig.rus.xiaomi.com^
+
+# --- Fire TV optional rows ---
+# Fire TV Channels ad delivery — FAST channels may lose their ad-supported
+# catalogue when blocked; device telemetry stays in the default tier
+#||ads.na.prod.channels.firetv.amazon.dev^
+#||ads.eu.prod.channels.firetv.amazon.dev^
 
 # --- Hisense optional rows ---
 

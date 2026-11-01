@@ -26,8 +26,6 @@ per-domain evidence (which source named which host) lives in the comments of
   <https://github.com/TheShawnMiranda/LG-TV-Ad-Block>
 - mboutolleau — block-samsung-tv-telemetry —
   <https://github.com/mboutolleau/block-samsung-tv-telemetry>
-- nextdns — native-tracking-domains —
-  <https://github.com/nextdns/native-tracking-domains>
 - dgomesbr — fightback-consumer-tv (Vizio) —
   <https://github.com/dgomesbr/fightback-consumer-tv>
 - Alice6006 — Samsung TV blocklist —

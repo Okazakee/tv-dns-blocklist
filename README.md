@@ -214,6 +214,14 @@ higher-tradeoff entries live in the strict tier (opt-in) instead of in your TV.
 
 ## Verification
 
+**2026-11-01 — maintenance** (v2026.11.01): 7 default rows added for Samsung
+Device Insight ingestion and the Xumo FAST beacon family (Samsung / Vizio /
+Philips / Panasonic / Android TV), plus 7 higher-tradeoff rows (Xiaomi
+`sdkconfig` base config, Fire TV Channels ads) in the OPTIONAL tier. All new
+hosts resolution-checked against the unfiltered resolver; `tools/validate.py`
+clean — default **222 blocks + 7 regex + 135 exceptions (364 rules)**, strict
+**338 blocks + 7 regex + 135 exceptions (480 rules)**.
+
 **2026-10-07 — maintenance** (v2026.10.07): LG Content Store fix — on a live
 webOS set the store failed with a network error (`-102`) while
 `rdx2.lgtvsdp.com`, `lgtvonline.lge.com`, `eic-ngfts.lge.com` and

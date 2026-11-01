@@ -1,5 +1,29 @@
 # Changelog
 
+## v2026.11.01 — monthly maintenance
+
+- **Samsung (default)** — added `dls.di.atlas.samsung.com` +
+  `regi.di.atlas.samsung.com` (Device Insight data ingestion on GCP; the
+  `atlas.samsung.com` apex is NODATA, so per-host rules are safe) and
+  `samsung-beacons.xumo.com` (Xumo FAST beacon, matching the Hisense/Roku
+  entries already in the list).
+- **Xumo beacon gap closed (default)** — `vizio-`, `philips-`, `panasonic-`
+  and `android-tv-beacons.xumo.com` added to their brand sections; all five
+  resolve to the same beacon front-end (136.110.193.66), streaming untouched.
+- **Xiaomi (OPTIONAL)** — `sdkconfig.xiaomi.com` + the `eu/india/intl/rus`
+  variants (ad-SDK/base config) as higher-tradeoff rows; the ad-specific
+  `sdkconfig.ad.*` hosts remain in the default tier.
+- **Fire TV (OPTIONAL)** — `ads.na.prod.channels.firetv.amazon.dev` +
+  `ads.eu.prod.channels.firetv.amazon.dev` (Fire TV Channels ad delivery;
+  FAST catalogue tradeoff).
+- **Sources** — dropped `nextdns/native-tracking-domains` (upstream repo is
+  404; its only entry, `logs.roku.com`, is already covered by our ROKU
+  section) from `SOURCES.md` and the monthly watch script. Liveness check now
+  uses 4 workers with retries to stop resolver rate-limit false positives.
+- Counts: default 222 blocks + 7 regex + 135 exceptions (364 rules); strict
+  + 9 OPTIONAL rows enabled (see `tools/build-strict.py` output). Generated
+  files rebuilt; validation clean.
+
 Releases are tagged `vYYYY.MM.DD`; the same version appears in the header of
 every published list. Generated files (`blocklist-strict.txt`, `pihole/*`) are
 rebuilt from `blocklist.txt` — see `tools/`.

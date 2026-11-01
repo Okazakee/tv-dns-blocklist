@@ -1,6 +1,6 @@
 # ---------------------------------------------------------------------------
 # TV DNS Blocklist — Pi-hole KEEP-WORKING allowlist — GENERATED FILE
-# Version: 2026.10.07
+# Version: 2026.11.01
 # Source: blocklist.txt (KEEP-WORKING exceptions)
 # Homepage: https://github.com/Okazakee/tv-dns-blocklist · License: MIT
 #
